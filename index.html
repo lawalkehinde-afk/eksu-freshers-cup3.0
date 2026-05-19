@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EKSU Fresher's Cup 3.0</title>
+<meta name="description" content="The official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <div>
+        <div class="logo-title">EKSU FRESHER'S CUP</div>
+        <div class="logo-sub">3.0 · FIERCE TOURNAMENT</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="pages/scores.html">Scores</a>
+      <a href="pages/fixtures.html">Fixtures</a>
+      <a href="pages/standings.html">Standings</a>
+      <a href="pages/bracket.html">Bracket</a>
+      <a href="pages/stats.html">Stats</a>
+      <a href="pages/stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="pages/scores.html">Scores</a>
+    <a href="pages/fixtures.html">Fixtures</a>
+    <a href="pages/standings.html">Standings</a>
+    <a href="pages/bracket.html">Bracket</a>
+    <a href="pages/stats.html">Stats</a>
+    <a href="pages/stream.html">Live Stream</a>
+    <a href="pages/admin.html" style="color:#4ade80">Admin Panel</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-circle c1"></div>
+    <div class="hero-circle c2"></div>
+    <div class="hero-circle c3"></div>
+    <div class="pitch-lines"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="live-dot"></span> Tournament in Progress</div>
+    <h1 class="hero-title">EKSU<br>FRESHER'S CUP<br><span class="hero-accent">3.0</span></h1>
+    <p class="hero-sub">Ekiti State University · Fierce Tournament · 2026</p>
+    <div class="hero-cta">
+      <a href="scores.html" class="btn-primary"><i class="fas fa-futbol"></i> Live Scores</a>
+      <a href="stream.html" class="btn-outline"><i class="fas fa-play"></i> Watch Live</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK STATS -->
+<section class="quick-stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" id="teamCount">16</div>
+        <div class="stat-label">Teams</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="matchCount">0</div>
+        <div class="stat-label">Matches Played</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="goalCount">0</div>
+        <div class="stat-label">Goals Scored</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="daysLeft">TBD</div>
+        <div class="stat-label">Days to Final</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST SCORES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Latest Scores</h2>
+      <a href="scores.html" class="see-all">See all <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div id="latestScores" class="scores-grid">
+      <div class="match-card live-match">
+        <div class="match-top">
+          <span class="match-round">Group A · MD2</span>
+          <span class="match-time-badge live"><span class="live-dot"></span>73'</span>
+        </div>
+        <div class="match-body">
+          <div class="team-side">
+            <div class="team-name">CPE United</div>
+            <div class="team-dept">Computer Eng.</div>
+          </div>
+          <div class="score-display">2 <span class="score-sep">:</span> 1</div>
+          <div class="team-side right">
+            <div class="team-name">EEE Sparks</div>
+            <div class="team-dept">Electrical Eng.</div>
+          </div>
+        </div>
+      </div>
+      <div class="match-card">
+        <div class="match-top">
+          <span class="match-round">Group B · MD2</span>
+          <span class="match-time-badge ft">FT</span>
+        </div>
+        <div class="match-body">
+          <div class="team-side">
+            <div class="team-name">MECH Warriors</div>
+            <div class="team-dept">Mechanical Eng.</div>
+          </div>
+          <div class="score-display">1 <span class="score-sep">:</span> 1</div>
+          <div class="team-side right">
+            <div class="team-name">Civil Rockers</div>
+            <div class="team-dept">Civil Eng.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOP SCORERS PREVIEW -->
+<section class="section dark-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Golden Boot Race</h2>
+      <a href="stats.html" class="see-all">Full stats <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="scorers-list">
+      <div class="scorer-row">
+        <div class="scorer-rank gold">1</div>
+        <div class="scorer-info">
+          <div class="scorer-name">Rasheyy</div>
+          <div class="scorer-team">CPE United · #8</div>
+        </div>
+        <div class="scorer-goals"><i class="fas fa-futbol"></i> 4</div>
+      </div>
+      <div class="scorer-row">
+        <div class="scorer-rank silver">2</div>
+        <div class="scorer-info">
+          <div class="scorer-name">D. Okafor</div>
+          <div class="scorer-team">MCT Eagles · #10</div>
+        </div>
+        <div class="scorer-goals"><i class="fas fa-futbol"></i> 3</div>
+      </div>
+      <div class="scorer-row">
+        <div class="scorer-rank bronze">3</div>
+        <div class="scorer-info">
+          <div class="scorer-name">T. Adeleke</div>
+          <div class="scorer-team">MECH Warriors · #7</div>
+        </div>
+        <div class="scorer-goals"><i class="fas fa-futbol"></i> 2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENTS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Announcements</h2>
+    </div>
+    <div class="announce-list" id="announcements">
+      <div class="announce-card">
+        <div class="announce-date">May 17, 2026</div>
+        <div class="announce-text">Welcome to EKSU Fresher's Cup 3.0! The official tournament hub is now live. Follow all the action here.</div>
+      </div>
+      <div class="announce-card">
+        <div class="announce-date">May 16, 2026</div>
+        <div class="announce-text">All team registrations are confirmed. Group stage fixtures will be published shortly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-sub">Ekiti State University · Fierce Tournament · 2026</div>
+    <div class="footer-links">
+      <a href="pages/scores.html">Scores</a>
+      <a href="pages/fixtures.html">Fixtures</a>
+      <a href="pages/standings.html">Standings</a>
+      <a href="pages/bracket.html">Bracket</a>
+      <a href="pages/admin.html">Admin</a>
+    </div>
+    <div class="footer-copy">Built by Kenny (Malik) · CPE Technical Team</div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

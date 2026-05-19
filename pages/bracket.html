@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bracket · EKSU Fresher's Cup 3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<style>
+.bracket-container{overflow-x:auto;padding:1rem 0 2rem;}
+.bracket-inner{display:flex;gap:0;min-width:900px;align-items:center;}
+.round{display:flex;flex-direction:column;gap:0;min-width:160px;}
+.round-header{font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:2px;text-align:center;padding-bottom:14px;}
+.matches-col{display:flex;flex-direction:column;justify-content:space-around;height:100%;}
+.bslot{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:7px 10px;font-size:12px;min-width:140px;color:rgba(255,255,255,0.5);font-style:italic;transition:border-color 0.2s;}
+.bslot.filled{color:rgba(255,255,255,0.9);font-style:normal;font-weight:500;}
+.bslot.winner-slot{border-color:rgba(74,222,128,0.4);color:#4ade80;}
+.bpair{display:flex;flex-direction:column;position:relative;}
+.bpair .bslot:first-child{border-radius:4px 4px 0 0;}
+.bpair .bslot+.bslot{border-top:none;border-radius:0 0 4px 4px;}
+.connector-wrap{display:flex;align-items:stretch;width:30px;}
+.champion-box{background:#1a0a2e;border:2px solid rgba(74,222,128,0.4);border-radius:12px;padding:1.5rem;text-align:center;min-width:150px;}
+.champion-icon{font-size:36px;margin-bottom:8px;}
+.champion-label{font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;}
+.champion-name{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#4ade80;letter-spacing:2px;}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="bracket.html" style="color:#4ade80">Bracket</a>
+      <a href="stats.html">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+    <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a><a href="stats.html">Stats</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">BRACKET</div>
+    <div class="page-sub">Knockout stage · EKSU Fresher's Cup 3.0</div>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;">
+  <div style="background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:8px;padding:10px 14px;font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;">
+    <i class="fas fa-info-circle" style="color:#4ade80;margin-right:6px;"></i>
+    Bracket teams will be confirmed after the group stage. Scroll right to see the full bracket.
+  </div>
+
+  <div class="bracket-container">
+    <div id="bracketRoot" style="display:flex;gap:4px;min-width:900px;align-items:center;"></div>
+  </div>
+
+  <!-- 3rd Place -->
+  <div style="margin-top:2rem;">
+    <div class="group-label" style="margin-bottom:0.75rem;">3rd Place Playoff</div>
+    <div class="match-card" style="max-width:400px;">
+      <div class="match-top"><span class="match-round">3rd Place Match</span><span class="match-time-badge upcoming">TBD</span></div>
+      <div class="match-body">
+        <div class="team-side"><div class="team-name" id="third1">TBD</div></div>
+        <div class="score-display"><span style="font-size:16px;color:rgba(255,255,255,0.3)">vs</span></div>
+        <div class="team-side right"><div class="team-name" id="third2">TBD</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-links"><a href="../index.html">Home</a><a href="standings.html">Standings</a><a href="stats.html">Stats</a></div>
+    <div class="footer-copy">Built by Kenny (Malik) · CPE Technical Team</div>
+  </div>
+</footer>
+
+<script src="../js/data.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+const b = DATA.bracket;
+const root = document.getElementById('bracketRoot');
+
+function makeSlot(name, isWinner){
+  const d = document.createElement('div');
+  d.className = 'bslot' + (name&&name!=='TBD'?' filled':'') + (isWinner?' winner-slot':'');
+  d.textContent = name||'TBD';
+  return d;
+}
+
+function makePair(home,away,hScore,aScore){
+  const wrap = document.createElement('div');
+  wrap.className = 'bpair';
+  wrap.style.marginBottom='8px';
+  const h = makeSlot(home);
+  const a = makeSlot(away);
+  if(hScore!==null) h.innerHTML += ` <strong style="color:#4ade80;float:right">${hScore}</strong>`;
+  if(aScore!==null) a.innerHTML += ` <strong style="color:#4ade80;float:right">${aScore}</strong>`;
+  wrap.appendChild(h);
+  wrap.appendChild(a);
+  return wrap;
+}
+
+function makeRound(label, pairs, justify){
+  const col = document.createElement('div');
+  col.style.cssText = `display:flex;flex-direction:column;min-width:160px;`;
+  const hdr = document.createElement('div');
+  hdr.className = 'round-header';
+  hdr.textContent = label;
+  col.appendChild(hdr);
+  const mc = document.createElement('div');
+  mc.style.cssText = `display:flex;flex-direction:column;justify-content:${justify||'space-around'};flex:1;gap:12px;`;
+  pairs.forEach(p=>mc.appendChild(p));
+  col.appendChild(mc);
+  return col;
+}
+
+function makeSpacer(){ const s=document.createElement('div');s.style.width='16px';return s; }
+
+// QF
+const qfPairs = b.qf.map(m=>makePair(m.home,m.away,m.homeScore,m.awayScore));
+root.appendChild(makeRound('Quarter-finals', qfPairs, 'space-around'));
+root.appendChild(makeSpacer());
+
+// SF
+const sfPairs = b.sf.map(m=>makePair(m.home,m.away,m.homeScore,m.awayScore));
+root.appendChild(makeRound('Semi-finals', sfPairs, 'space-around'));
+root.appendChild(makeSpacer());
+
+// Final + Champion
+const center = document.createElement('div');
+center.style.cssText='display:flex;flex-direction:column;align-items:center;gap:12px;min-width:170px;';
+const fHeader = document.createElement('div');
+fHeader.className='round-header';
+fHeader.textContent='Final';
+center.appendChild(fHeader);
+const fPair=makePair(b.final.home,b.final.away,b.final.homeScore,b.final.awayScore);
+center.appendChild(fPair);
+const champBox=document.createElement('div');
+champBox.className='champion-box';
+champBox.innerHTML=`<div class="champion-icon">🏆</div><div class="champion-label">Champion</div><div class="champion-name">${b.champion||'TBD'}</div>`;
+center.appendChild(champBox);
+root.appendChild(center);
+
+// Right SF
+root.appendChild(makeSpacer());
+const sfRight=b.sf.map(m=>makePair(m.home,m.away,m.homeScore,m.awayScore));
+root.appendChild(makeRound('Semi-finals', sfRight, 'space-around'));
+root.appendChild(makeSpacer());
+
+// Right QF
+const qfRight=b.qf.map(m=>makePair(m.home,m.away,m.homeScore,m.awayScore));
+root.appendChild(makeRound('Quarter-finals', qfRight, 'space-around'));
+
+// 3rd place
+document.getElementById('third1').textContent=b.thirdPlace.home;
+document.getElementById('third2').textContent=b.thirdPlace.away;
+</script>
+</body>
+</html>
