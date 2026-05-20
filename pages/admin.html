@@ -7,56 +7,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="stylesheet" href="../css/style.css"/>
-<style>
-.admin-section{margin-bottom:2rem;}
-.match-edit-row{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:1rem;margin-bottom:10px;}
-.match-edit-teams{display:grid;grid-template-columns:1fr 60px 20px 60px 1fr auto;gap:8px;align-items:center;margin-bottom:8px;}
-.match-edit-teams input[type=number]{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:100%;}
-.match-edit-teams input[type=number]::-webkit-inner-spin-button{opacity:1;}
-.team-label{font-size:13px;font-weight:500;}
-.team-label.right{text-align:right;}
-.status-select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:6px 10px;font-size:12px;color:#fff;font-family:'Barlow',sans-serif;}
-.save-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
-.minute-input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:6px 10px;font-size:12px;color:#fff;font-family:'Barlow',sans-serif;width:70px;}
-.tab-panel-admin{display:none;}
-.tab-panel-admin.active{display:block;}
-.saved-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(74,222,128,0.12);color:#4ade80;font-size:12px;padding:4px 10px;border-radius:4px;opacity:0;transition:opacity 0.3s;}
-.saved-badge.show{opacity:1;}
-</style>
+<link rel="stylesheet" href="../css/animations.css"/>
 </head>
 <body>
 <nav class="nav">
   <div class="nav-inner">
     <a href="../index.html" class="nav-logo">
       <span class="logo-icon"><i class="fas fa-futbol"></i></span>
-      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · ADMIN PANEL</div></div>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · ADMIN</div></div>
     </a>
     <div class="nav-links">
       <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
-      <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a>
-      <a href="stats.html">Stats</a><a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+      <a href="standings.html">Standings</a><a href="stats.html">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
     </div>
     <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
-    <a href="standings.html">Standings</a><a href="stats.html">Stats</a>
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="stream.html">Stream</a>
   </div>
 </nav>
 
-<!-- LOGIN -->
+<!-- PIN LOGIN -->
 <div id="loginScreen" style="padding-top:60px;">
   <div class="login-box">
-    <div style="font-size:36px;margin-bottom:8px;">🔒</div>
+    <div style="font-size:36px;margin-bottom:8px;">🔐</div>
     <div class="login-title">ADMIN ACCESS</div>
-    <div class="login-sub">Enter your password to manage the tournament</div>
-    <div id="loginError" class="alert alert-error" style="display:none;">Wrong password. Try again.</div>
-    <div class="form-group">
-      <input class="form-input" type="password" id="pwInput" placeholder="Password" onkeydown="if(event.key==='Enter')login()"/>
+    <div class="login-sub">Enter your 4-digit PIN</div>
+    <div id="loginError" class="alert alert-error" style="display:none;margin-bottom:1rem;">Wrong PIN. Try again.</div>
+    <div class="pin-display">
+      <div class="pin-dot" id="pd0"></div>
+      <div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div>
+      <div class="pin-dot" id="pd3"></div>
     </div>
-    <button class="btn-submit" style="width:100%;padding:12px;" onclick="login()">
-      <i class="fas fa-unlock"></i> Login
-    </button>
+    <div class="pin-grid" id="pinGrid">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn" onclick="pinClear()" style="font-size:14px;">CLR</button>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-btn" onclick="pinBackspace()" style="font-size:14px;">⌫</button>
+    </div>
   </div>
 </div>
 
@@ -64,218 +62,220 @@
 <div id="adminPanel" style="display:none;">
   <div class="page-header">
     <div class="page-header-inner">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
         <div>
           <div class="page-title">ADMIN PANEL</div>
-          <div class="page-sub">Manage scores, fixtures, announcements & stream</div>
+          <div class="page-sub">Manage the tournament</div>
         </div>
-        <button onclick="logout()" style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:8px 16px;font-family:'Barlow',sans-serif;font-size:13px;cursor:pointer;">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </button>
+        <div style="display:flex;gap:8px;">
+          <span id="adminNameBadge" style="background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);border-radius:6px;padding:6px 12px;font-size:12px;"></span>
+          <button onclick="logout()" style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:6px 14px;font-family:'Barlow',sans-serif;font-size:13px;cursor:pointer;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="admin-wrap" style="max-width:900px;">
-
-    <!-- TAB NAV -->
     <div class="tab-nav">
       <button class="tab-btn active" onclick="showAdminTab('scores')"><i class="fas fa-futbol"></i> Scores</button>
       <button class="tab-btn" onclick="showAdminTab('fixtures')"><i class="fas fa-calendar"></i> Fixtures</button>
-      <button class="tab-btn" onclick="showAdminTab('announce')"><i class="fas fa-bullhorn"></i> Announcements</button>
+      <button class="tab-btn" onclick="showAdminTab('announce')"><i class="fas fa-bullhorn"></i> Announce</button>
       <button class="tab-btn" onclick="showAdminTab('stream')"><i class="fas fa-play"></i> Stream</button>
       <button class="tab-btn" onclick="showAdminTab('scorers')"><i class="fas fa-list"></i> Scorers</button>
+      <button class="tab-btn" onclick="showAdminTab('log')"><i class="fas fa-history"></i> Log</button>
     </div>
 
-    <!-- SCORES TAB -->
+    <!-- SCORES -->
     <div class="tab-panel-admin active" id="admin-scores">
-      <div class="admin-section">
-        <div class="admin-title"><i class="fas fa-futbol"></i> Update Match Scores</div>
-        <div id="matchEditors"></div>
-      </div>
+      <div class="admin-title"><i class="fas fa-futbol"></i> Update Match Scores</div>
+      <div id="matchEditors"></div>
     </div>
 
-    <!-- FIXTURES TAB -->
+    <!-- FIXTURES -->
     <div class="tab-panel-admin" id="admin-fixtures">
-      <div class="admin-section">
-        <div class="admin-title"><i class="fas fa-plus"></i> Add New Fixture</div>
-        <div class="admin-card">
-          <div class="form-group">
-            <label class="form-label">Home Team</label>
-            <select class="form-select" id="newHome"></select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Away Team</label>
-            <select class="form-select" id="newAway"></select>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="form-group">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-input" id="newDate"/>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Time</label>
-              <input type="time" class="form-input" id="newTime"/>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Round Label (e.g. Group A · MD3)</label>
-            <input type="text" class="form-input" id="newRound" placeholder="Group A · MD3"/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Venue</label>
-            <input type="text" class="form-input" id="newVenue" placeholder="Field A"/>
-          </div>
-          <button class="btn-submit" onclick="addFixture()"><i class="fas fa-plus"></i> Add Fixture</button>
-          <span class="saved-badge" id="fixtureSaved"><i class="fas fa-check"></i> Fixture Added!</span>
+      <div class="admin-title"><i class="fas fa-plus"></i> Add New Fixture</div>
+      <div class="admin-card">
+        <div class="form-group"><label class="form-label">Home Team</label><select class="form-select" id="newHome"></select></div>
+        <div class="form-group"><label class="form-label">Away Team</label><select class="form-select" id="newAway"></select></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="form-group"><label class="form-label">Date</label><input type="date" class="form-input" id="newDate"/></div>
+          <div class="form-group"><label class="form-label">Time</label><input type="time" class="form-input" id="newTime"/></div>
         </div>
+        <div class="form-group"><label class="form-label">Round Label</label><input type="text" class="form-input" id="newRound" placeholder="Group A · MD3"/></div>
+        <div class="form-group"><label class="form-label">Venue</label><input type="text" class="form-input" id="newVenue" placeholder="Field A"/></div>
+        <button class="btn-submit" onclick="addFixture()"><i class="fas fa-plus"></i> Add Fixture</button>
+        <span class="saved-badge" id="fixtureSaved"><i class="fas fa-check"></i> Added!</span>
       </div>
     </div>
 
-    <!-- ANNOUNCEMENTS TAB -->
+    <!-- ANNOUNCEMENTS -->
     <div class="tab-panel-admin" id="admin-announce">
-      <div class="admin-section">
-        <div class="admin-title"><i class="fas fa-bullhorn"></i> Post Announcement</div>
-        <div class="admin-card">
-          <div class="form-group">
-            <label class="form-label">Announcement Text</label>
-            <textarea class="form-input" id="newAnnounce" rows="4" placeholder="Type your announcement here..." style="resize:vertical;"></textarea>
-          </div>
-          <button class="btn-submit" onclick="postAnnouncement()"><i class="fas fa-paper-plane"></i> Post</button>
-          <span class="saved-badge" id="announceSaved"><i class="fas fa-check"></i> Posted!</span>
-        </div>
-
-        <div class="admin-title" style="margin-top:1.5rem;">Current Announcements</div>
-        <div id="currentAnnouncements"></div>
+      <div class="admin-title"><i class="fas fa-bullhorn"></i> Post Announcement</div>
+      <div class="admin-card">
+        <div class="form-group"><textarea class="form-input" id="newAnnounce" rows="4" placeholder="Type announcement..." style="resize:vertical;"></textarea></div>
+        <button class="btn-submit" onclick="postAnnouncement()"><i class="fas fa-paper-plane"></i> Post</button>
+        <span class="saved-badge" id="announceSaved"><i class="fas fa-check"></i> Posted!</span>
       </div>
+      <div class="admin-title" style="margin-top:1.5rem;">Current Announcements</div>
+      <div id="currentAnnouncements"></div>
     </div>
 
-    <!-- STREAM TAB -->
+    <!-- STREAM -->
     <div class="tab-panel-admin" id="admin-stream">
-      <div class="admin-section">
-        <div class="admin-title"><i class="fas fa-play"></i> Stream Settings</div>
-        <div class="admin-card">
-          <div class="form-group">
-            <label class="form-label">Stream Status</label>
-            <select class="form-select" id="streamStatus">
-              <option value="false">⚫ Offline</option>
-              <option value="true">🔴 Live</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">YouTube Live URL</label>
-            <input type="url" class="form-input" id="ytUrl" placeholder="https://youtube.com/watch?v=..."/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Facebook Live URL</label>
-            <input type="url" class="form-input" id="fbUrl" placeholder="https://facebook.com/..."/>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Next Match Info (shown when offline)</label>
-            <input type="text" class="form-input" id="nextMatch" placeholder="Next: CPE United vs MCT Eagles — May 19, 2:00 PM"/>
-          </div>
-          <button class="btn-submit" onclick="saveStream()"><i class="fas fa-save"></i> Save Stream Settings</button>
-          <span class="saved-badge" id="streamSaved"><i class="fas fa-check"></i> Saved!</span>
+      <div class="admin-title"><i class="fas fa-play"></i> Stream Settings</div>
+      <div class="admin-card">
+        <div class="form-group"><label class="form-label">Status</label>
+          <select class="form-select" id="streamStatus"><option value="false">⚫ Offline</option><option value="true">🔴 Live</option></select>
         </div>
+        <div class="form-group"><label class="form-label">YouTube Live URL</label><input type="url" class="form-input" id="ytUrl" placeholder="https://youtube.com/watch?v=..."/></div>
+        <div class="form-group"><label class="form-label">Facebook Live URL</label><input type="url" class="form-input" id="fbUrl" placeholder="https://facebook.com/..."/></div>
+        <div class="form-group"><label class="form-label">Next Match Info</label><input type="text" class="form-input" id="nextMatch"/></div>
+        <button class="btn-submit" onclick="saveStream()"><i class="fas fa-save"></i> Save</button>
+        <span class="saved-badge" id="streamSaved"><i class="fas fa-check"></i> Saved!</span>
       </div>
     </div>
 
-    <!-- SCORERS TAB -->
+    <!-- SCORERS -->
     <div class="tab-panel-admin" id="admin-scorers">
-      <div class="admin-section">
-        <div class="admin-title"><i class="fas fa-plus"></i> Add / Update Scorer</div>
-        <div class="admin-card">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div class="form-group">
-              <label class="form-label">Player Name</label>
-              <input type="text" class="form-input" id="scorerName" placeholder="Player name"/>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Team</label>
-              <select class="form-select" id="scorerTeam"></select>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-            <div class="form-group">
-              <label class="form-label">Jersey #</label>
-              <input type="number" class="form-input" id="scorerJersey" placeholder="8"/>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Goals</label>
-              <input type="number" class="form-input" id="scorerGoals" placeholder="0"/>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Assists</label>
-              <input type="number" class="form-input" id="scorerAssists" placeholder="0"/>
-            </div>
-          </div>
-          <button class="btn-submit" onclick="addScorer()"><i class="fas fa-plus"></i> Add Scorer</button>
-          <span class="saved-badge" id="scorerSaved"><i class="fas fa-check"></i> Added!</span>
+      <div class="admin-title"><i class="fas fa-plus"></i> Add / Update Scorer</div>
+      <div class="admin-card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="form-group"><label class="form-label">Player Name</label><input type="text" class="form-input" id="scorerName" placeholder="Player name"/></div>
+          <div class="form-group"><label class="form-label">Team</label><select class="form-select" id="scorerTeam"></select></div>
         </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <div class="form-group"><label class="form-label">Jersey #</label><input type="number" class="form-input" id="scorerJersey"/></div>
+          <div class="form-group"><label class="form-label">Goals</label><input type="number" class="form-input" id="scorerGoals" value="0"/></div>
+          <div class="form-group"><label class="form-label">Assists</label><input type="number" class="form-input" id="scorerAssists" value="0"/></div>
+        </div>
+        <button class="btn-submit" onclick="addScorer()"><i class="fas fa-plus"></i> Add Scorer</button>
+        <span class="saved-badge" id="scorerSaved"><i class="fas fa-check"></i> Added!</span>
+      </div>
+      <div class="admin-title" style="margin-top:1.5rem;">Current Scorers</div>
+      <div id="scorersList"></div>
+    </div>
 
-        <div class="admin-title" style="margin-top:1.5rem;">Current Scorers</div>
-        <div id="scorersList"></div>
+    <!-- ACTIVITY LOG -->
+    <div class="tab-panel-admin" id="admin-log">
+      <div class="admin-title"><i class="fas fa-history"></i> Activity Log</div>
+      <div class="admin-card">
+        <div id="activityLog"></div>
+        <button class="btn-submit" style="margin-top:1rem;background:rgba(239,68,68,0.15);color:#f87171;" onclick="clearLog()">
+          <i class="fas fa-trash"></i> Clear Log
+        </button>
       </div>
     </div>
 
-  </div><!-- end admin-wrap -->
-</div><!-- end adminPanel -->
+  </div>
+</div>
+
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
 
 <script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
 <script>
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+// ---- PIN SYSTEM ----
+const ADMINS = [
+  { name: 'Kenny (Main)', pin: '1234' },
+  { name: 'Admin 2', pin: '5678' },
+  { name: 'Admin 3', pin: '9999' },
+];
+// Change pins above — each person has their own
 
-// ---- LOGIN ----
-function login(){
-  const pw = document.getElementById('pwInput').value;
-  if(pw === DATA.adminPassword){
+let pinInput = '';
+
+function pinPress(d) {
+  if (pinInput.length >= 4) return;
+  pinInput += d;
+  updateDots();
+  if (pinInput.length === 4) setTimeout(checkPin, 150);
+}
+function pinBackspace() { pinInput = pinInput.slice(0,-1); updateDots(); }
+function pinClear() { pinInput = ''; updateDots(); }
+function updateDots() {
+  for (let i=0;i<4;i++) {
+    const dot=document.getElementById('pd'+i);
+    if(dot) dot.classList.toggle('filled', i < pinInput.length);
+  }
+}
+function checkPin() {
+  const admin = ADMINS.find(a => a.pin === pinInput);
+  if (admin) {
+    sessionStorage.setItem('fc3admin', '1');
+    sessionStorage.setItem('fc3name', admin.name);
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('adminPanel').style.display='block';
-    sessionStorage.setItem('fc3admin','1');
+    document.getElementById('adminNameBadge').textContent = '👤 ' + admin.name;
+    addLog('🔓 Logged in', admin.name);
     initAdmin();
   } else {
     document.getElementById('loginError').style.display='block';
+    document.getElementById('pinGrid').classList.add('pin-shake');
+    setTimeout(()=>document.getElementById('pinGrid').classList.remove('pin-shake'), 400);
+    pinInput=''; updateDots();
   }
 }
-function logout(){
-  sessionStorage.removeItem('fc3admin');
-  location.reload();
-}
-if(sessionStorage.getItem('fc3admin')==='1'){
+function logout() { sessionStorage.clear(); location.reload(); }
+
+if (sessionStorage.getItem('fc3admin')==='1') {
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('adminPanel').style.display='block';
-  // initAdmin called after script loads
-  document.addEventListener('DOMContentLoaded', initAdmin);
+  const name = sessionStorage.getItem('fc3name')||'Admin';
+  const badge = document.getElementById('adminNameBadge');
+  if (badge) badge.textContent = '👤 ' + name;
 }
 
-function showAdminTab(id){
+// ---- ACTIVITY LOG ----
+function addLog(action, who) {
+  const logs = JSON.parse(localStorage.getItem('fc3logs')||'[]');
+  logs.unshift({ action, who: who||sessionStorage.getItem('fc3name')||'Admin', time: new Date().toLocaleTimeString() });
+  if (logs.length > 50) logs.pop();
+  localStorage.setItem('fc3logs', JSON.stringify(logs));
+}
+function buildLog() {
+  const logs = JSON.parse(localStorage.getItem('fc3logs')||'[]');
+  const el = document.getElementById('activityLog');
+  if (!el) return;
+  if (logs.length === 0) { el.innerHTML='<p style="color:rgba(255,255,255,0.3);font-size:13px;">No activity yet.</p>'; return; }
+  el.innerHTML = logs.map(l=>`
+    <div class="log-entry">
+      <div class="log-time">${l.time}</div>
+      <div class="log-text"><strong>${l.who}</strong> — ${l.action}</div>
+    </div>`).join('');
+}
+function clearLog() { localStorage.removeItem('fc3logs'); buildLog(); }
+
+// ---- ADMIN TABS ----
+function showAdminTab(id) {
   document.querySelectorAll('.tab-panel-admin').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('admin-'+id).classList.add('active');
   event.currentTarget.classList.add('active');
+  if (id==='log') buildLog();
 }
 
-function showSaved(id){
+function showSaved(id) {
   const el=document.getElementById(id);
+  if(!el)return;
   el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),2500);
+  setTimeout(()=>el.classList.remove('show'), 2500);
 }
 
-function initAdmin(){
+function initAdmin() {
   buildMatchEditors();
   buildTeamSelects();
   buildAnnouncements();
   buildScorersList();
-  // Stream
   document.getElementById('streamStatus').value = String(DATA.stream.isLive);
   document.getElementById('ytUrl').value = DATA.stream.youtubeUrl||'';
   document.getElementById('fbUrl').value = DATA.stream.facebookUrl||'';
   document.getElementById('nextMatch').value = DATA.stream.nextMatchInfo||'';
 }
 
-// ---- MATCH EDITORS ----
-function buildMatchEditors(){
-  const container = document.getElementById('matchEditors');
+function buildMatchEditors() {
+  const container=document.getElementById('matchEditors');
   container.innerHTML='';
   DATA.matches.forEach((m,i)=>{
     const home=getTeam(m.home), away=getTeam(m.away);
@@ -285,9 +285,9 @@ function buildMatchEditors(){
       <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">${m.round} · ${m.date}</div>
       <div class="match-edit-teams">
         <div class="team-label">${home.name}</div>
-        <input type="number" min="0" max="99" value="${m.homeScore||0}" id="hs${i}" style="width:60px;"/>
+        <input type="number" min="0" max="99" value="${m.homeScore||0}" id="hs${i}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:60px;"/>
         <div style="text-align:center;color:rgba(255,255,255,0.3);font-family:'Bebas Neue',sans-serif;font-size:20px;">:</div>
-        <input type="number" min="0" max="99" value="${m.awayScore||0}" id="as${i}" style="width:60px;"/>
+        <input type="number" min="0" max="99" value="${m.awayScore||0}" id="as${i}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:60px;"/>
         <div class="team-label right">${away.name}</div>
         <div></div>
       </div>
@@ -297,46 +297,44 @@ function buildMatchEditors(){
           <option value="live" ${m.status==='live'?'selected':''}>🔴 Live</option>
           <option value="ft" ${m.status==='ft'?'selected':''}>✅ Full Time</option>
         </select>
-        <input class="minute-input" type="text" placeholder="e.g. 45" id="mn${i}" value="${m.minute||''}" style="${m.status==='live'?'':'opacity:0.4'}"/>
+        <input class="minute-input" type="text" placeholder="e.g. 45" id="mn${i}" value="${m.minute||''}"/>
         <button class="btn-submit" onclick="saveMatch(${i})"><i class="fas fa-save"></i> Save</button>
         <span class="saved-badge" id="saved${i}"><i class="fas fa-check"></i> Saved</span>
       </div>`;
     container.appendChild(row);
-    document.getElementById('st'+i).onchange=function(){
-      document.getElementById('mn'+i).style.opacity=this.value==='live'?'1':'0.4';
-    };
   });
 }
 
-function saveMatch(i){
+function saveMatch(i) {
   const m=DATA.matches[i];
+  const prevHome=m.homeScore, prevAway=m.awayScore;
   m.homeScore=parseInt(document.getElementById('hs'+i).value)||0;
   m.awayScore=parseInt(document.getElementById('as'+i).value)||0;
   m.status=document.getElementById('st'+i).value;
   m.minute=document.getElementById('mn'+i).value;
   showSaved('saved'+i);
-  // In a real deployment this would send to a backend / Firebase
-  console.log('Match updated:', m);
+  const home=getTeam(m.home), away=getTeam(m.away);
+  const totalGoals=m.homeScore+m.awayScore;
+  const prevTotal=prevHome+prevAway;
+  if(totalGoals > prevTotal) {
+    addLog(`⚽ Goal scored — ${home.name} ${m.homeScore}:${m.awayScore} ${away.name}`);
+  } else {
+    addLog(`📝 Score updated — ${home.name} ${m.homeScore}:${m.awayScore} ${away.name}`);
+  }
 }
 
-// ---- FIXTURES ----
-function buildTeamSelects(){
+function buildTeamSelects() {
   ['newHome','newAway','scorerTeam'].forEach(id=>{
-    const sel=document.getElementById(id);
-    if(!sel)return;
+    const sel=document.getElementById(id); if(!sel)return;
     sel.innerHTML='';
-    DATA.teams.forEach(t=>{
-      const o=document.createElement('option');
-      o.value=t.id; o.textContent=`${t.name} (Group ${t.group})`;
-      sel.appendChild(o);
-    });
+    DATA.teams.forEach(t=>{ const o=document.createElement('option'); o.value=t.id; o.textContent=`${t.name} (Grp ${t.group})`; sel.appendChild(o); });
   });
 }
 
-function addFixture(){
+function addFixture() {
   const home=parseInt(document.getElementById('newHome').value);
   const away=parseInt(document.getElementById('newAway').value);
-  if(home===away){alert('Home and away teams must be different!');return;}
+  if(home===away){alert('Home and away must be different!');return;}
   const date=document.getElementById('newDate').value;
   const time=document.getElementById('newTime').value;
   const round=document.getElementById('newRound').value||'Group Stage';
@@ -344,55 +342,44 @@ function addFixture(){
   const newId=Math.max(...DATA.matches.map(m=>m.id))+1;
   DATA.matches.push({id:newId,home,away,homeScore:0,awayScore:0,status:'upcoming',minute:'',round,date,time,venue});
   buildMatchEditors();
+  addLog(`📅 Fixture added — ${getTeam(home).name} vs ${getTeam(away).name}`);
   showSaved('fixtureSaved');
 }
 
-// ---- ANNOUNCEMENTS ----
-function postAnnouncement(){
+function postAnnouncement() {
   const text=document.getElementById('newAnnounce').value.trim();
   if(!text)return;
   const today=new Date().toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'});
   DATA.announcements.unshift({date:today,text,important:false});
   document.getElementById('newAnnounce').value='';
   buildAnnouncements();
+  addLog('📢 Announcement posted');
   showSaved('announceSaved');
 }
 
-function buildAnnouncements(){
-  const c=document.getElementById('currentAnnouncements');
-  c.innerHTML='';
+function buildAnnouncements() {
+  const c=document.getElementById('currentAnnouncements'); c.innerHTML='';
   DATA.announcements.forEach((a,i)=>{
-    const div=document.createElement('div');
-    div.className='announce-card';
-    div.style.marginBottom='8px';
-    div.innerHTML=`
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div><div class="announce-date">${a.date}</div><div class="announce-text">${a.text}</div></div>
-        <button onclick="deleteAnnouncement(${i})" style="background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:11px;margin-left:10px;flex-shrink:0;">
-          <i class="fas fa-trash"></i>
-        </button>
-      </div>`;
+    const div=document.createElement('div'); div.className='announce-card'; div.style.marginBottom='8px';
+    div.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div><div class="announce-date">${a.date}</div><div class="announce-text">${a.text}</div></div>
+      <button onclick="deleteAnnouncement(${i})" style="background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:11px;margin-left:10px;flex-shrink:0;"><i class="fas fa-trash"></i></button>
+    </div>`;
     c.appendChild(div);
   });
 }
+function deleteAnnouncement(i) { DATA.announcements.splice(i,1); buildAnnouncements(); addLog('🗑 Announcement deleted'); }
 
-function deleteAnnouncement(i){
-  DATA.announcements.splice(i,1);
-  buildAnnouncements();
-}
-
-// ---- STREAM ----
-function saveStream(){
+function saveStream() {
   DATA.stream.isLive=document.getElementById('streamStatus').value==='true';
   DATA.stream.youtubeUrl=document.getElementById('ytUrl').value;
   DATA.stream.facebookUrl=document.getElementById('fbUrl').value;
   DATA.stream.nextMatchInfo=document.getElementById('nextMatch').value;
+  addLog(`📡 Stream ${DATA.stream.isLive?'set LIVE':'set offline'}`);
   showSaved('streamSaved');
-  console.log('Stream settings saved:', DATA.stream);
 }
 
-// ---- SCORERS ----
-function addScorer(){
+function addScorer() {
   const name=document.getElementById('scorerName').value.trim();
   const team=parseInt(document.getElementById('scorerTeam').value);
   const jersey=parseInt(document.getElementById('scorerJersey').value)||0;
@@ -403,33 +390,27 @@ function addScorer(){
   if(existing){existing.goals=goals;existing.assists=assists;existing.jersey=jersey;}
   else DATA.scorers.push({name,team,jersey,goals,assists});
   buildScorersList();
+  addLog(`⚽ Scorer updated — ${name} (${goals} goals)`);
   showSaved('scorerSaved');
   document.getElementById('scorerName').value='';
 }
 
-function buildScorersList(){
-  const c=document.getElementById('scorersList');
-  c.innerHTML='';
-  [...DATA.scorers].sort((a,b)=>b.goals-a.goals).forEach((s,i)=>{
+function buildScorersList() {
+  const c=document.getElementById('scorersList'); c.innerHTML='';
+  [...DATA.scorers].sort((a,b)=>b.goals-a.goals).forEach(s=>{
     const team=getTeam(s.team);
-    const div=document.createElement('div');
-    div.className='match-edit-row';
-    div.innerHTML=`
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <div style="font-weight:600;font-size:14px;">${s.name} <span style="font-size:11px;color:rgba(255,255,255,0.4)">#${s.jersey}</span></div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;">${team.name}</div>
-        </div>
-        <div style="display:flex;gap:16px;align-items:center;">
-          <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#4ade80;">${s.goals}</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">GOALS</div></div>
-          <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fbbf24;">${s.assists}</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">AST</div></div>
-        </div>
-      </div>`;
+    const div=document.createElement('div'); div.className='match-edit-row';
+    div.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;">
+      <div><div style="font-weight:600;font-size:14px;">${s.name} <span style="font-size:11px;color:rgba(255,255,255,0.4)">#${s.jersey}</span></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;">${team.name}</div></div>
+      <div style="display:flex;gap:16px;align-items:center;">
+        <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#4ade80;">${s.goals}</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">GOALS</div></div>
+        <div style="text-align:center;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fbbf24;">${s.assists}</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">AST</div></div>
+      </div></div>`;
     c.appendChild(div);
   });
 }
 
-// Auto-init if already logged in
 if(sessionStorage.getItem('fc3admin')==='1') initAdmin();
 </script>
 </body>

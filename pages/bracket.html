@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
 <style>
 .bracket-container{overflow-x:auto;padding:1rem 0 2rem;}
 .bracket-inner{display:flex;gap:0;min-width:900px;align-items:center;}
@@ -86,6 +87,12 @@
   </div>
 </footer>
 
+<!-- TICKER -->
+<div class="ticker-wrap" id="tickerWrap"><div class="ticker-label"><i class="fas fa-futbol"></i> &nbsp;Live</div><div style="overflow:hidden;flex:1;"><div class="ticker-track" id="tickerTrack"></div></div></div>
+<!-- GOAL POPUP -->
+<div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
+<div class="goal-popup" id="goalPopup"><button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button><div class="goal-popup-icon">⚽</div><div class="goal-popup-title">GOAL!</div><div class="goal-popup-scorer" id="gpScorer"></div><div class="goal-popup-match" id="gpMatch"></div><div class="goal-popup-score" id="gpScore"></div></div>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
 <script src="../js/data.js"></script>
 <script>
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}

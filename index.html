@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EKSU Fresher's Cup 3.0</title>
-<meta name="description" content="The official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
+<meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/animations.css"/>
 </head>
 <body>
+
+<!-- TICKER -->
+<div class="ticker-wrap" id="tickerWrap">
+  <div class="ticker-label"><i class="fas fa-futbol"></i> &nbsp;Live</div>
+  <div style="overflow:hidden;flex:1;">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <span class="logo-icon"><i class="fas fa-futbol"></i></span>
-      <div>
-        <div class="logo-title">EKSU FRESHER'S CUP</div>
-        <div class="logo-sub">3.0 · FIERCE TOURNAMENT</div>
-      </div>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
     </a>
     <div class="nav-links">
       <a href="pages/scores.html">Scores</a>
@@ -28,6 +33,7 @@
       <a href="pages/standings.html">Standings</a>
       <a href="pages/bracket.html">Bracket</a>
       <a href="pages/stats.html">Stats</a>
+      <a href="pages/gallery.html">Gallery</a>
       <a href="pages/stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
     </div>
     <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
@@ -38,6 +44,7 @@
     <a href="pages/standings.html">Standings</a>
     <a href="pages/bracket.html">Bracket</a>
     <a href="pages/stats.html">Stats</a>
+    <a href="pages/gallery.html">Gallery</a>
     <a href="pages/stream.html">Live Stream</a>
     <a href="pages/admin.html" style="color:#4ade80">Admin Panel</a>
   </div>
@@ -56,32 +63,37 @@
     <h1 class="hero-title">EKSU<br>FRESHER'S CUP<br><span class="hero-accent">3.0</span></h1>
     <p class="hero-sub">Ekiti State University · Fierce Tournament · 2026</p>
     <div class="hero-cta">
-      <a href="scores.html" class="btn-primary"><i class="fas fa-futbol"></i> Live Scores</a>
-      <a href="stream.html" class="btn-outline"><i class="fas fa-play"></i> Watch Live</a>
+      <a href="pages/scores.html" class="btn-primary"><i class="fas fa-futbol"></i> Live Scores</a>
+      <a href="pages/stream.html" class="btn-outline"><i class="fas fa-play"></i> Watch Live</a>
     </div>
   </div>
 </section>
+
+<!-- COUNTDOWN -->
+<div class="container">
+  <div class="countdown-section" id="countdownSection">
+    <div class="countdown-label">Next Match</div>
+    <div class="countdown-match" id="countdownMatch"></div>
+    <div class="countdown-grid">
+      <div class="countdown-unit"><span class="countdown-num" id="cdDays">00</span><div class="countdown-unit-label">Days</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cdHours">00</span><div class="countdown-unit-label">Hours</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cdMins">00</span><div class="countdown-unit-label">Mins</div></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-unit"><span class="countdown-num" id="cdSecs">00</span><div class="countdown-unit-label">Secs</div></div>
+    </div>
+  </div>
+</div>
 
 <!-- QUICK STATS -->
 <section class="quick-stats">
   <div class="container">
     <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num" id="teamCount">16</div>
-        <div class="stat-label">Teams</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="matchCount">0</div>
-        <div class="stat-label">Matches Played</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="goalCount">0</div>
-        <div class="stat-label">Goals Scored</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num" id="daysLeft">TBD</div>
-        <div class="stat-label">Days to Final</div>
-      </div>
+      <div class="stat-card"><div class="stat-num">16</div><div class="stat-label">Teams</div></div>
+      <div class="stat-card"><div class="stat-num" id="matchCount">0</div><div class="stat-label">Matches Played</div></div>
+      <div class="stat-card"><div class="stat-num" id="goalCount">0</div><div class="stat-label">Goals Scored</div></div>
+      <div class="stat-card"><div class="stat-num" id="scorerCount">0</div><div class="stat-label">Scorers</div></div>
     </div>
   </div>
 </section>
@@ -91,99 +103,28 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">Latest Scores</h2>
-      <a href="scores.html" class="see-all">See all <i class="fas fa-arrow-right"></i></a>
+      <a href="pages/scores.html" class="see-all">See all <i class="fas fa-arrow-right"></i></a>
     </div>
-    <div id="latestScores" class="scores-grid">
-      <div class="match-card live-match">
-        <div class="match-top">
-          <span class="match-round">Group A · MD2</span>
-          <span class="match-time-badge live"><span class="live-dot"></span>73'</span>
-        </div>
-        <div class="match-body">
-          <div class="team-side">
-            <div class="team-name">CPE United</div>
-            <div class="team-dept">Computer Eng.</div>
-          </div>
-          <div class="score-display">2 <span class="score-sep">:</span> 1</div>
-          <div class="team-side right">
-            <div class="team-name">EEE Sparks</div>
-            <div class="team-dept">Electrical Eng.</div>
-          </div>
-        </div>
-      </div>
-      <div class="match-card">
-        <div class="match-top">
-          <span class="match-round">Group B · MD2</span>
-          <span class="match-time-badge ft">FT</span>
-        </div>
-        <div class="match-body">
-          <div class="team-side">
-            <div class="team-name">MECH Warriors</div>
-            <div class="team-dept">Mechanical Eng.</div>
-          </div>
-          <div class="score-display">1 <span class="score-sep">:</span> 1</div>
-          <div class="team-side right">
-            <div class="team-name">Civil Rockers</div>
-            <div class="team-dept">Civil Eng.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="latestScores" class="scores-grid"></div>
   </div>
 </section>
 
-<!-- TOP SCORERS PREVIEW -->
+<!-- TOP SCORERS -->
 <section class="section dark-section">
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">Golden Boot Race</h2>
-      <a href="stats.html" class="see-all">Full stats <i class="fas fa-arrow-right"></i></a>
+      <a href="pages/stats.html" class="see-all">Full stats <i class="fas fa-arrow-right"></i></a>
     </div>
-    <div class="scorers-list">
-      <div class="scorer-row">
-        <div class="scorer-rank gold">1</div>
-        <div class="scorer-info">
-          <div class="scorer-name">Rasheyy</div>
-          <div class="scorer-team">CPE United · #8</div>
-        </div>
-        <div class="scorer-goals"><i class="fas fa-futbol"></i> 4</div>
-      </div>
-      <div class="scorer-row">
-        <div class="scorer-rank silver">2</div>
-        <div class="scorer-info">
-          <div class="scorer-name">D. Okafor</div>
-          <div class="scorer-team">MCT Eagles · #10</div>
-        </div>
-        <div class="scorer-goals"><i class="fas fa-futbol"></i> 3</div>
-      </div>
-      <div class="scorer-row">
-        <div class="scorer-rank bronze">3</div>
-        <div class="scorer-info">
-          <div class="scorer-name">T. Adeleke</div>
-          <div class="scorer-team">MECH Warriors · #7</div>
-        </div>
-        <div class="scorer-goals"><i class="fas fa-futbol"></i> 2</div>
-      </div>
-    </div>
+    <div class="scorers-list" id="scorersList"></div>
   </div>
 </section>
 
 <!-- ANNOUNCEMENTS -->
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Announcements</h2>
-    </div>
-    <div class="announce-list" id="announcements">
-      <div class="announce-card">
-        <div class="announce-date">May 17, 2026</div>
-        <div class="announce-text">Welcome to EKSU Fresher's Cup 3.0! The official tournament hub is now live. Follow all the action here.</div>
-      </div>
-      <div class="announce-card">
-        <div class="announce-date">May 16, 2026</div>
-        <div class="announce-text">All team registrations are confirmed. Group stage fixtures will be published shortly.</div>
-      </div>
-    </div>
+    <div class="section-header"><h2 class="section-title">Announcements</h2></div>
+    <div class="announce-list" id="announcements"></div>
   </div>
 </section>
 
@@ -193,17 +134,80 @@
     <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
     <div class="footer-sub">Ekiti State University · Fierce Tournament · 2026</div>
     <div class="footer-links">
-      <a href="pages/scores.html">Scores</a>
-      <a href="pages/fixtures.html">Fixtures</a>
-      <a href="pages/standings.html">Standings</a>
-      <a href="pages/bracket.html">Bracket</a>
-      <a href="pages/admin.html">Admin</a>
+      <a href="pages/scores.html">Scores</a><a href="pages/fixtures.html">Fixtures</a>
+      <a href="pages/standings.html">Standings</a><a href="pages/bracket.html">Bracket</a>
+      <a href="pages/gallery.html">Gallery</a><a href="pages/admin.html">Admin</a>
     </div>
     <div class="footer-copy">Built by Kenny (Malik) · CPE Technical Team</div>
   </div>
 </footer>
 
+<!-- GOAL POPUP -->
+<div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
+<div class="goal-popup" id="goalPopup">
+  <button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button>
+  <div class="goal-popup-icon">⚽</div>
+  <div class="goal-popup-title">GOAL!</div>
+  <div class="goal-popup-scorer" id="gpScorer"></div>
+  <div class="goal-popup-match" id="gpMatch"></div>
+  <div class="goal-popup-score" id="gpScore"></div>
+</div>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
+
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script>
+// Populate latest scores
+const scoresEl = document.getElementById('latestScores');
+const recent = DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4);
+recent.forEach(m=>{
+  const home=getTeam(m.home), away=getTeam(m.away);
+  const isLive=m.status==='live';
+  const card=document.createElement('div');
+  card.className='match-card'+(isLive?' live-match':'');
+  card.innerHTML=`
+    <div class="match-top">
+      <span class="match-round">${m.round}</span>
+      <span class="match-time-badge ${isLive?'live':'ft'}">${isLive?`<span class="live-dot"></span>${m.minute}'`:'FT'}</span>
+    </div>
+    <div class="match-body">
+      <div class="team-side"><div class="team-name">${home.name}</div><div class="team-dept">${home.dept}</div></div>
+      <div class="score-display">${m.homeScore} <span class="score-sep">:</span> ${m.awayScore}</div>
+      <div class="team-side right"><div class="team-name">${away.name}</div><div class="team-dept">${away.dept}</div></div>
+    </div>`;
+  scoresEl.appendChild(card);
+});
+
+// Scorers
+const rankCls=['gold','silver','bronze'];
+const slist=document.getElementById('scorersList');
+[...DATA.scorers].sort((a,b)=>b.goals-a.goals).slice(0,3).forEach((s,i)=>{
+  const team=getTeam(s.team);
+  const div=document.createElement('div');
+  div.className='scorer-row';
+  div.innerHTML=`<div class="scorer-rank ${rankCls[i]||'other'}">${i+1}</div>
+    <div class="scorer-info"><div class="scorer-name">${s.name}</div><div class="scorer-team">${team.name} · #${s.jersey}</div></div>
+    <div class="scorer-goals"><i class="fas fa-futbol"></i> ${s.goals}</div>`;
+  slist.appendChild(div);
+});
+
+// Announcements
+const ann=document.getElementById('announcements');
+DATA.announcements.slice(0,3).forEach(a=>{
+  const div=document.createElement('div');
+  div.className='announce-card';
+  div.innerHTML=`<div class="announce-date">${a.date}</div><div class="announce-text">${a.text}</div>`;
+  ann.appendChild(div);
+});
+
+// Stats
+const ftMatches=DATA.matches.filter(m=>m.status==='ft'||m.status==='live');
+document.getElementById('matchCount').textContent=ftMatches.length;
+const goals=ftMatches.reduce((s,m)=>s+m.homeScore+m.awayScore,0);
+document.getElementById('goalCount').textContent=goals;
+document.getElementById('scorerCount').textContent=DATA.scorers.length;
+</script>
 </body>
 </html>
