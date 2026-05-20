@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EKSU Fresher's Cup 3.0</title>
-<meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
+<meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -11,14 +11,6 @@
 <link rel="stylesheet" href="css/animations.css"/>
 </head>
 <body>
-
-<!-- TICKER -->
-<div class="ticker-wrap" id="tickerWrap">
-  <div class="ticker-label"><i class="fas fa-futbol"></i> &nbsp;Live</div>
-  <div style="overflow:hidden;flex:1;">
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
-</div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -72,8 +64,8 @@
 <!-- COUNTDOWN -->
 <div class="container">
   <div class="countdown-section" id="countdownSection">
-    <div class="countdown-label">Next Match</div>
-    <div class="countdown-match" id="countdownMatch"></div>
+    <div class="countdown-label"><i class="fas fa-clock"></i> &nbsp;Next Match</div>
+    <div class="countdown-match" id="countdownMatch">Loading...</div>
     <div class="countdown-grid">
       <div class="countdown-unit"><span class="countdown-num" id="cdDays">00</span><div class="countdown-unit-label">Days</div></div>
       <div class="countdown-sep">:</div>
@@ -142,6 +134,14 @@
   </div>
 </footer>
 
+<!-- BOTTOM TV TICKER -->
+<div class="bottom-ticker" id="bottomTicker">
+  <div class="bottom-ticker-label"><i class="fas fa-futbol"></i> SCORES</div>
+  <div class="bottom-ticker-track-wrap">
+    <div class="bottom-ticker-track" id="tickerTrack"></div>
+  </div>
+</div>
+
 <!-- GOAL POPUP -->
 <div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
 <div class="goal-popup" id="goalPopup">
@@ -154,24 +154,21 @@
 </div>
 
 <!-- THEME TOGGLE -->
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode">☀️</button>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
-// Populate latest scores
+const rankCls = ['gold','silver','bronze'];
+
+// Scores
 const scoresEl = document.getElementById('latestScores');
-const recent = DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4);
-recent.forEach(m=>{
-  const home=getTeam(m.home), away=getTeam(m.away);
-  const isLive=m.status==='live';
+DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4).forEach(m=>{
+  const home=getTeam(m.home), away=getTeam(m.away), isLive=m.status==='live';
   const card=document.createElement('div');
   card.className='match-card'+(isLive?' live-match':'');
-  card.innerHTML=`
-    <div class="match-top">
-      <span class="match-round">${m.round}</span>
-      <span class="match-time-badge ${isLive?'live':'ft'}">${isLive?`<span class="live-dot"></span>${m.minute}'`:'FT'}</span>
-    </div>
+  card.innerHTML=`<div class="match-top"><span class="match-round">${m.round}</span>
+    <span class="match-time-badge ${isLive?'live':'ft'}">${isLive?`<span class="live-dot"></span>${m.minute}'`:'FT'}</span></div>
     <div class="match-body">
       <div class="team-side"><div class="team-name">${home.name}</div><div class="team-dept">${home.dept}</div></div>
       <div class="score-display">${m.homeScore} <span class="score-sep">:</span> ${m.awayScore}</div>
@@ -181,12 +178,10 @@ recent.forEach(m=>{
 });
 
 // Scorers
-const rankCls=['gold','silver','bronze'];
 const slist=document.getElementById('scorersList');
 [...DATA.scorers].sort((a,b)=>b.goals-a.goals).slice(0,3).forEach((s,i)=>{
   const team=getTeam(s.team);
-  const div=document.createElement('div');
-  div.className='scorer-row';
+  const div=document.createElement('div'); div.className='scorer-row';
   div.innerHTML=`<div class="scorer-rank ${rankCls[i]||'other'}">${i+1}</div>
     <div class="scorer-info"><div class="scorer-name">${s.name}</div><div class="scorer-team">${team.name} · #${s.jersey}</div></div>
     <div class="scorer-goals"><i class="fas fa-futbol"></i> ${s.goals}</div>`;
@@ -196,17 +191,15 @@ const slist=document.getElementById('scorersList');
 // Announcements
 const ann=document.getElementById('announcements');
 DATA.announcements.slice(0,3).forEach(a=>{
-  const div=document.createElement('div');
-  div.className='announce-card';
+  const div=document.createElement('div'); div.className='announce-card';
   div.innerHTML=`<div class="announce-date">${a.date}</div><div class="announce-text">${a.text}</div>`;
   ann.appendChild(div);
 });
 
 // Stats
-const ftMatches=DATA.matches.filter(m=>m.status==='ft'||m.status==='live');
-document.getElementById('matchCount').textContent=ftMatches.length;
-const goals=ftMatches.reduce((s,m)=>s+m.homeScore+m.awayScore,0);
-document.getElementById('goalCount').textContent=goals;
+const ft=DATA.matches.filter(m=>m.status==='ft'||m.status==='live');
+document.getElementById('matchCount').textContent=ft.length;
+document.getElementById('goalCount').textContent=ft.reduce((s,m)=>s+m.homeScore+m.awayScore,0);
 document.getElementById('scorerCount').textContent=DATA.scorers.length;
 </script>
 </body>
