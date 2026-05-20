@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EKSU Fresher's Cup 3.0</title>
-<meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -12,7 +11,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -42,7 +40,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
     <div class="hero-circle c1"></div>
@@ -61,7 +58,6 @@
   </div>
 </section>
 
-<!-- COUNTDOWN -->
 <div class="container">
   <div class="countdown-section" id="countdownSection">
     <div class="countdown-label"><i class="fas fa-clock"></i> &nbsp;Next Match</div>
@@ -78,7 +74,6 @@
   </div>
 </div>
 
-<!-- QUICK STATS -->
 <section class="quick-stats">
   <div class="container">
     <div class="stats-grid">
@@ -90,7 +85,6 @@
   </div>
 </section>
 
-<!-- LATEST SCORES -->
 <section class="section">
   <div class="container">
     <div class="section-header">
@@ -101,7 +95,6 @@
   </div>
 </section>
 
-<!-- TOP SCORERS -->
 <section class="section dark-section">
   <div class="container">
     <div class="section-header">
@@ -112,7 +105,6 @@
   </div>
 </section>
 
-<!-- ANNOUNCEMENTS -->
 <section class="section">
   <div class="container">
     <div class="section-header"><h2 class="section-title">Announcements</h2></div>
@@ -120,7 +112,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
@@ -134,34 +125,12 @@
   </div>
 </footer>
 
-<!-- BOTTOM TV TICKER -->
-<div class="bottom-ticker" id="bottomTicker">
-  <div class="bottom-ticker-label"><i class="fas fa-futbol"></i> SCORES</div>
-  <div class="bottom-ticker-track-wrap">
-    <div class="bottom-ticker-track" id="tickerTrack"></div>
-  </div>
-</div>
-
-<!-- GOAL POPUP -->
-<div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
-<div class="goal-popup" id="goalPopup">
-  <button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button>
-  <div class="goal-popup-icon">⚽</div>
-  <div class="goal-popup-title">GOAL!</div>
-  <div class="goal-popup-scorer" id="gpScorer"></div>
-  <div class="goal-popup-match" id="gpMatch"></div>
-  <div class="goal-popup-score" id="gpScore"></div>
-</div>
-
-<!-- THEME TOGGLE -->
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode">☀️</button>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
 const rankCls = ['gold','silver','bronze'];
-
-// Scores
 const scoresEl = document.getElementById('latestScores');
 DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4).forEach(m=>{
   const home=getTeam(m.home), away=getTeam(m.away), isLive=m.status==='live';
@@ -177,7 +146,6 @@ DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4).forEach(m=
   scoresEl.appendChild(card);
 });
 
-// Scorers
 const slist=document.getElementById('scorersList');
 [...DATA.scorers].sort((a,b)=>b.goals-a.goals).slice(0,3).forEach((s,i)=>{
   const team=getTeam(s.team);
@@ -188,7 +156,6 @@ const slist=document.getElementById('scorersList');
   slist.appendChild(div);
 });
 
-// Announcements
 const ann=document.getElementById('announcements');
 DATA.announcements.slice(0,3).forEach(a=>{
   const div=document.createElement('div'); div.className='announce-card';
@@ -196,7 +163,6 @@ DATA.announcements.slice(0,3).forEach(a=>{
   ann.appendChild(div);
 });
 
-// Stats
 const ft=DATA.matches.filter(m=>m.status==='ft'||m.status==='live');
 document.getElementById('matchCount').textContent=ft.length;
 document.getElementById('goalCount').textContent=ft.reduce((s,m)=>s+m.homeScore+m.awayScore,0);

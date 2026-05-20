@@ -1,153 +1,89 @@
-// ============================================================
-// EKSU FRESHER'S CUP 3.0 — MAIN JS (ENHANCED)
-// ============================================================
+// EKSU FRESHER'S CUP 3.0 — MAIN JS
 
 function initTheme() {
   const saved = localStorage.getItem('fc3theme');
   if (saved === 'light') document.body.classList.add('light-mode');
-  const btn = document.getElementById('themeToggle');
-  if (btn) btn.innerHTML = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+  updateThemeBtn();
 }
-
+function updateThemeBtn() {
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+}
 function toggleTheme() {
   document.body.classList.toggle('light-mode');
-  const isLight = document.body.classList.contains('light-mode');
-  localStorage.setItem('fc3theme', isLight ? 'light' : 'dark');
-  const btn = document.getElementById('themeToggle');
-  if (btn) btn.innerHTML = isLight ? '🌙' : '☀️';
+  localStorage.setItem('fc3theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+  updateThemeBtn();
 }
-
 function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('mobileMenu')?.classList.toggle('open');
 }
 
-function buildTicker() {
-  const wrap = document.getElementById('tickerTrack');
-  if (!wrap) return;
-  const matches = DATA.matches.filter(m => m.status === 'live' || m.status === 'ft');
-  if (matches.length === 0) {
-    const tw = document.getElementById('tickerWrap');
-    if (tw) tw.style.display = 'none';
-    document.body.style.paddingTop = '60px';
-    return;
-  }
-  let html = '';
-  [0, 1].forEach(() => {
-    matches.forEach(m => {
-      const home = getTeam(m.home), away = getTeam(m.away);
-      const isLive = m.status === 'live';
-      html += `<div class="ticker-item">
-        ${isLive ? '<span class="ticker-live-badge">LIVE</span>' : ''}
-        <span>${home.name}</span>
-        <span class="ticker-score">${m.homeScore} : ${m.awayScore}</span>
-        <span>${away.name}</span>
-      </div>`;
-    });
-  });
-  wrap.innerHTML = html;
-}
-
-function convertTime(t) {
-  if (!t) return '12:00:00';
-  const [time, modifier] = t.split(' ');
-  let [hours, minutes] = time.split(':');
-  if (modifier === 'PM' && hours !== '12') hours = parseInt(hours) + 12;
-  if (modifier === 'AM' && hours === '12') hours = '00';
-  return `${String(hours).padStart(2,'0')}:${minutes || '00'}:00`;
-}
-
+// ---- COUNTDOWN ----
 function buildCountdown() {
   const el = document.getElementById('countdownSection');
   if (!el) return;
-  const upcoming = DATA.matches
-    .filter(m => m.status === 'upcoming')
-    .sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+  const upcoming = DATA.matches.filter(m => m.status === 'upcoming')
+    .sort((a,b) => new Date(a.date) - new Date(b.date))[0];
   if (!upcoming) { el.style.display = 'none'; return; }
   const home = getTeam(upcoming.home), away = getTeam(upcoming.away);
   const matchEl = document.getElementById('countdownMatch');
-  if (matchEl) matchEl.textContent = `${home.name} vs ${away.name} · ${upcoming.date} at ${upcoming.time}`;
+  if (matchEl) matchEl.textContent = home.name + ' vs ' + away.name + ' · ' + upcoming.date + ' at ' + upcoming.time;
   function tick() {
     const now = new Date();
-    const target = new Date(`${upcoming.date}T${convertTime(upcoming.time)}`);
+    let [t, mod] = (upcoming.time||'12:00 PM').split(' ');
+    let [h, m] = t.split(':').map(Number);
+    if (mod === 'PM' && h !== 12) h += 12;
+    if (mod === 'AM' && h === 12) h = 0;
+    const target = new Date(upcoming.date); target.setHours(h, m||0, 0, 0);
     const diff = target - now;
-    const safe = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
-    if (diff <= 0) { safe('cdDays','00'); safe('cdHours','00'); safe('cdMins','00'); safe('cdSecs','00'); return; }
-    safe('cdDays', String(Math.floor(diff/86400000)).padStart(2,'0'));
-    safe('cdHours', String(Math.floor((diff%86400000)/3600000)).padStart(2,'0'));
-    safe('cdMins', String(Math.floor((diff%3600000)/60000)).padStart(2,'0'));
-    safe('cdSecs', String(Math.floor((diff%60000)/1000)).padStart(2,'0'));
+    const set = (id, val) => { const e=document.getElementById(id); if(e) e.textContent=String(Math.max(0,val)).padStart(2,'0'); };
+    if (diff <= 0) { set('cdDays',0); set('cdHours',0); set('cdMins',0); set('cdSecs',0); return; }
+    set('cdDays', Math.floor(diff/86400000));
+    set('cdHours', Math.floor((diff%86400000)/3600000));
+    set('cdMins', Math.floor((diff%3600000)/60000));
+    set('cdSecs', Math.floor((diff%60000)/1000));
   }
   tick(); setInterval(tick, 1000);
 }
 
-function showGoalPopup(scorer, matchStr, score) {
-  const overlay = document.getElementById('goalOverlay');
-  const popup = document.getElementById('goalPopup');
-  if (!overlay || !popup) return;
-  const gs = document.getElementById('gpScorer'); if (gs) gs.textContent = scorer;
-  const gm = document.getElementById('gpMatch'); if (gm) gm.textContent = matchStr;
-  const gsc = document.getElementById('gpScore'); if (gsc) gsc.textContent = score;
-  overlay.classList.add('show'); popup.classList.add('show');
-  setTimeout(closeGoalPopup, 4000);
-}
-
-function closeGoalPopup() {
-  document.getElementById('goalOverlay')?.classList.remove('show');
-  document.getElementById('goalPopup')?.classList.remove('show');
-}
-
+// ---- CONFETTI ----
 function launchConfetti() {
-  const colors = ['#4ade80','#fbbf24','#a78bfa','#f87171','#60a5fa','#fff'];
-  for (let i = 0; i < 120; i++) {
+  const colors = ['#4ade80','#fbbf24','#a78bfa','#f87171','#60a5fa','#ffffff'];
+  for (let i = 0; i < 100; i++) {
     setTimeout(() => {
       const p = document.createElement('div');
       p.className = 'confetti-piece';
-      p.style.left = Math.random()*100+'vw';
-      p.style.background = colors[Math.floor(Math.random()*colors.length)];
-      p.style.width = (Math.random()*8+6)+'px';
-      p.style.height = (Math.random()*8+6)+'px';
-      p.style.borderRadius = Math.random()>0.5?'50%':'2px';
-      p.style.animationDuration = (Math.random()*2+2)+'s';
+      p.style.cssText = `left:${Math.random()*100}vw;width:${Math.random()*8+5}px;height:${Math.random()*8+5}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${Math.random()*2+2}s;`;
       document.body.appendChild(p);
-      setTimeout(()=>p.remove(), 4000);
-    }, i*20);
+      setTimeout(() => p.remove(), 4500);
+    }, i * 25);
   }
 }
 
+// ---- SCROLL ANIMATIONS ----
 function initScrollAnimations() {
-  if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('.match-card,.scorer-row,.announce-card,.stat-card').forEach(el=>el.classList.add('visible'));
-    return;
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(()=>entry.target.classList.add('visible'), i*60);
-        observer.unobserve(entry.target);
-      }
+  const items = document.querySelectorAll('.match-card,.scorer-row,.announce-card,.stat-card');
+  if (!('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('visible')); return; }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) { setTimeout(()=>e.target.classList.add('visible'), i*55); obs.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.match-card,.scorer-row,.announce-card,.stat-card').forEach(el=>observer.observe(el));
+  items.forEach(el => obs.observe(el));
 }
 
+// ---- TOAST ----
 function showToast(msg) {
-  let toast = document.getElementById('mainToast');
-  if (!toast) { toast=document.createElement('div'); toast.className='toast'; toast.id='mainToast'; document.body.appendChild(toast); }
-  toast.textContent = msg; toast.classList.add('show');
-  setTimeout(()=>toast.classList.remove('show'), 3000);
+  let t = document.getElementById('mainToast');
+  if (!t) { t=document.createElement('div'); t.className='toast'; t.id='mainToast'; document.body.appendChild(t); }
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-function setActiveNav() {
-  const page = location.pathname.split('/').pop();
-  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
-    const href = a.getAttribute('href').split('/').pop();
-    if (href === page) a.style.color = '#4ade80';
-  });
-}
-
+// ---- INIT ----
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme(); setActiveNav(); buildTicker(); buildCountdown(); initScrollAnimations();
-  if (typeof DATA !== 'undefined' && DATA.bracket.champion && DATA.bracket.champion !== 'TBD') {
-    setTimeout(launchConfetti, 800);
+  initTheme(); buildCountdown(); initScrollAnimations();
+  if (typeof DATA !== 'undefined' && DATA.bracket?.champion && DATA.bracket.champion !== 'TBD') {
+    setTimeout(launchConfetti, 600);
   }
 });
