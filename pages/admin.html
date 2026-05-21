@@ -8,6 +8,40 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="stylesheet" href="../css/style.css"/>
 <link rel="stylesheet" href="../css/animations.css"/>
+<style>
+.login-box{max-width:400px;margin:5rem auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;}
+.login-logo{text-align:center;margin-bottom:1.5rem;}
+.login-logo-icon{width:56px;height:56px;background:rgba(74,222,128,0.15);border:1px solid rgba(74,222,128,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#4ade80;margin:0 auto 10px;}
+.login-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#fff;text-align:center;}
+.login-sub{font-size:13px;color:rgba(255,255,255,0.4);text-align:center;margin-top:4px;}
+.login-tabs{display:flex;gap:8px;margin:1.5rem 0 1rem;}
+.login-tab{flex:1;padding:10px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:transparent;color:rgba(255,255,255,0.4);font-family:'Barlow',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.login-tab.active{background:rgba(74,222,128,0.12);border-color:rgba(74,222,128,0.4);color:#4ade80;}
+.tab-panel-admin{display:none;}
+.tab-panel-admin.active{display:block;}
+.saved-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(74,222,128,0.12);color:#4ade80;font-size:12px;padding:4px 10px;border-radius:4px;opacity:0;transition:opacity 0.3s;margin-left:8px;}
+.saved-badge.show{opacity:1;}
+.invite-slot{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1rem;margin-bottom:10px;}
+.invite-slot-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.invite-slot-name{font-size:13px;font-weight:500;color:var(--color-text-primary,#fff);}
+.invite-slot-badge{font-size:11px;padding:3px 8px;border-radius:20px;}
+.badge-active{background:rgba(74,222,128,0.12);color:#4ade80;}
+.badge-empty{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);}
+.badge-revoked{background:rgba(239,68,68,0.12);color:#f87171;}
+.code-display{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;color:#4ade80;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);border-radius:6px;padding:8px 14px;display:inline-block;margin-right:8px;}
+.revoke-btn{background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;font-family:'Barlow',sans-serif;}
+.revoke-btn:hover{background:rgba(239,68,68,0.2);}
+.generate-btn{background:rgba(74,222,128,0.12);color:#4ade80;border:1px solid rgba(74,222,128,0.25);border-radius:6px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:'Barlow',sans-serif;font-weight:500;}
+.generate-btn:hover{background:rgba(74,222,128,0.2);}
+.match-edit-row{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:1rem;margin-bottom:10px;}
+.save-row{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap;}
+.status-select{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:6px 10px;font-size:12px;color:#fff;font-family:'Barlow',sans-serif;}
+.minute-input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:6px 10px;font-size:12px;color:#fff;font-family:'Barlow',sans-serif;width:70px;}
+.log-entry{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;}
+.log-time{color:rgba(255,255,255,0.3);min-width:80px;font-size:11px;margin-top:2px;}
+.log-text{color:rgba(255,255,255,0.75);line-height:1.5;}
+.sub-notice{background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:1rem;}
+</style>
 </head>
 <body>
 <nav class="nav">
@@ -28,32 +62,60 @@
   </div>
 </nav>
 
-<!-- PIN LOGIN -->
+<!-- LOGIN SCREEN -->
 <div id="loginScreen" style="padding-top:60px;">
   <div class="login-box">
-    <div style="font-size:36px;margin-bottom:8px;">🔐</div>
-    <div class="login-title">ADMIN ACCESS</div>
-    <div class="login-sub">Enter your 4-digit PIN</div>
-    <div id="loginError" class="alert alert-error" style="display:none;margin-bottom:1rem;">Wrong PIN. Try again.</div>
-    <div class="pin-display">
-      <div class="pin-dot" id="pd0"></div>
-      <div class="pin-dot" id="pd1"></div>
-      <div class="pin-dot" id="pd2"></div>
-      <div class="pin-dot" id="pd3"></div>
+    <div class="login-logo">
+      <div class="login-logo-icon"><i class="fas fa-shield-alt"></i></div>
+      <div class="login-title">ADMIN ACCESS</div>
+      <div class="login-sub">EKSU Fresher's Cup 3.0</div>
     </div>
-    <div class="pin-grid" id="pinGrid">
-      <button class="pin-btn" onclick="pinPress('1')">1</button>
-      <button class="pin-btn" onclick="pinPress('2')">2</button>
-      <button class="pin-btn" onclick="pinPress('3')">3</button>
-      <button class="pin-btn" onclick="pinPress('4')">4</button>
-      <button class="pin-btn" onclick="pinPress('5')">5</button>
-      <button class="pin-btn" onclick="pinPress('6')">6</button>
-      <button class="pin-btn" onclick="pinPress('7')">7</button>
-      <button class="pin-btn" onclick="pinPress('8')">8</button>
-      <button class="pin-btn" onclick="pinPress('9')">9</button>
-      <button class="pin-btn" onclick="pinClear()" style="font-size:14px;">CLR</button>
-      <button class="pin-btn" onclick="pinPress('0')">0</button>
-      <button class="pin-btn" onclick="pinBackspace()" style="font-size:14px;">⌫</button>
+
+    <!-- Login tabs -->
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="switchLoginTab('main', this)">
+        <i class="fas fa-crown"></i> Main Admin
+      </button>
+      <button class="login-tab" onclick="switchLoginTab('sub', this)">
+        <i class="fas fa-user"></i> Sub Admin
+      </button>
+    </div>
+
+    <!-- Main Admin Login -->
+    <div id="mainLoginTab">
+      <div id="mainLoginError" class="alert alert-error" style="display:none;margin-bottom:1rem;">Invalid email or password.</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="mainEmail" placeholder="Enter your email" onkeydown="if(event.key==='Enter')mainLogin()"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div style="position:relative;">
+          <input type="password" class="form-input" id="mainPass" placeholder="Enter your password" onkeydown="if(event.key==='Enter')mainLogin()" style="padding-right:40px;"/>
+          <button onclick="togglePass('mainPass',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.4);cursor:pointer;font-size:14px;">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <button class="btn-submit" style="width:100%;padding:12px;" onclick="mainLogin()">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+
+    <!-- Sub Admin Login -->
+    <div id="subLoginTab" style="display:none;">
+      <div style="background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:8px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:1rem;">
+        <i class="fas fa-info-circle" style="color:#4ade80;margin-right:6px;"></i>
+        Enter the invite code provided by the main admin.
+      </div>
+      <div id="subLoginError" class="alert alert-error" style="display:none;margin-bottom:1rem;">Invalid or revoked invite code.</div>
+      <div class="form-group">
+        <label class="form-label">Invite Code</label>
+        <input type="text" class="form-input" id="subCode" placeholder="Enter invite code" style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;text-transform:uppercase;" onkeydown="if(event.key==='Enter')subLogin()" oninput="this.value=this.value.toUpperCase()"/>
+      </div>
+      <button class="btn-submit" style="width:100%;padding:12px;" onclick="subLogin()">
+        <i class="fas fa-key"></i> Enter
+      </button>
     </div>
   </div>
 </div>
@@ -65,10 +127,10 @@
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
         <div>
           <div class="page-title">ADMIN PANEL</div>
-          <div class="page-sub">Manage the tournament</div>
+          <div class="page-sub" id="adminRoleBadge">Loading...</div>
         </div>
-        <div style="display:flex;gap:8px;">
-          <span id="adminNameBadge" style="background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);border-radius:6px;padding:6px 12px;font-size:12px;"></span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span id="adminNameDisplay" style="background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);border-radius:6px;padding:6px 12px;font-size:12px;"></span>
           <button onclick="logout()" style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:6px 14px;font-family:'Barlow',sans-serif;font-size:13px;cursor:pointer;">
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
@@ -78,22 +140,37 @@
   </div>
 
   <div class="admin-wrap" style="max-width:900px;">
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="showAdminTab('scores')"><i class="fas fa-futbol"></i> Scores</button>
-      <button class="tab-btn" onclick="showAdminTab('fixtures')"><i class="fas fa-calendar"></i> Fixtures</button>
-      <button class="tab-btn" onclick="showAdminTab('announce')"><i class="fas fa-bullhorn"></i> Announce</button>
-      <button class="tab-btn" onclick="showAdminTab('stream')"><i class="fas fa-play"></i> Stream</button>
-      <button class="tab-btn" onclick="showAdminTab('scorers')"><i class="fas fa-list"></i> Scorers</button>
-      <button class="tab-btn" onclick="showAdminTab('log')"><i class="fas fa-history"></i> Log</button>
+
+    <!-- MAIN ADMIN TABS -->
+    <div id="mainAdminTabs" style="display:none;">
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="showAdminTab('scores')"><i class="fas fa-futbol"></i> Scores</button>
+        <button class="tab-btn" onclick="showAdminTab('fixtures')"><i class="fas fa-calendar"></i> Fixtures</button>
+        <button class="tab-btn" onclick="showAdminTab('announce')"><i class="fas fa-bullhorn"></i> Announce</button>
+        <button class="tab-btn" onclick="showAdminTab('stream')"><i class="fas fa-play"></i> Stream</button>
+        <button class="tab-btn" onclick="showAdminTab('scorers')"><i class="fas fa-list"></i> Scorers</button>
+        <button class="tab-btn" onclick="showAdminTab('access')"><i class="fas fa-users"></i> Access</button>
+        <button class="tab-btn" onclick="showAdminTab('log')"><i class="fas fa-history"></i> Log</button>
+      </div>
     </div>
 
-    <!-- SCORES -->
+    <!-- SUB ADMIN TABS -->
+    <div id="subAdminTabs" style="display:none;">
+      <div class="sub-notice"><i class="fas fa-info-circle" style="color:#4ade80;margin-right:6px;"></i> You are logged in as a Sub Admin. You can update scores, post announcements and view the activity log.</div>
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="showAdminTab('scores')"><i class="fas fa-futbol"></i> Scores</button>
+        <button class="tab-btn" onclick="showAdminTab('announce')"><i class="fas fa-bullhorn"></i> Announce</button>
+        <button class="tab-btn" onclick="showAdminTab('log')"><i class="fas fa-history"></i> Log</button>
+      </div>
+    </div>
+
+    <!-- SCORES TAB -->
     <div class="tab-panel-admin active" id="admin-scores">
       <div class="admin-title"><i class="fas fa-futbol"></i> Update Match Scores</div>
       <div id="matchEditors"></div>
     </div>
 
-    <!-- FIXTURES -->
+    <!-- FIXTURES TAB (main only) -->
     <div class="tab-panel-admin" id="admin-fixtures">
       <div class="admin-title"><i class="fas fa-plus"></i> Add New Fixture</div>
       <div class="admin-card">
@@ -110,7 +187,7 @@
       </div>
     </div>
 
-    <!-- ANNOUNCEMENTS -->
+    <!-- ANNOUNCEMENTS TAB -->
     <div class="tab-panel-admin" id="admin-announce">
       <div class="admin-title"><i class="fas fa-bullhorn"></i> Post Announcement</div>
       <div class="admin-card">
@@ -122,14 +199,14 @@
       <div id="currentAnnouncements"></div>
     </div>
 
-    <!-- STREAM -->
+    <!-- STREAM TAB (main only) -->
     <div class="tab-panel-admin" id="admin-stream">
       <div class="admin-title"><i class="fas fa-play"></i> Stream Settings</div>
       <div class="admin-card">
         <div class="form-group"><label class="form-label">Status</label>
           <select class="form-select" id="streamStatus"><option value="false">⚫ Offline</option><option value="true">🔴 Live</option></select>
         </div>
-        <div class="form-group"><label class="form-label">YouTube Live URL</label><input type="url" class="form-input" id="ytUrl" placeholder="https://youtube.com/watch?v=..."/></div>
+        <div class="form-group"><label class="form-label">YouTube Live URL</label><input type="url" class="form-input" id="ytUrl" placeholder="https://youtube.com/watch?v=... or /live/..."/></div>
         <div class="form-group"><label class="form-label">Facebook Live URL</label><input type="url" class="form-input" id="fbUrl" placeholder="https://facebook.com/..."/></div>
         <div class="form-group"><label class="form-label">Next Match Info</label><input type="text" class="form-input" id="nextMatch"/></div>
         <button class="btn-submit" onclick="saveStream()"><i class="fas fa-save"></i> Save</button>
@@ -137,7 +214,7 @@
       </div>
     </div>
 
-    <!-- SCORERS -->
+    <!-- SCORERS TAB (main only) -->
     <div class="tab-panel-admin" id="admin-scorers">
       <div class="admin-title"><i class="fas fa-plus"></i> Add / Update Scorer</div>
       <div class="admin-card">
@@ -155,6 +232,13 @@
       </div>
       <div class="admin-title" style="margin-top:1.5rem;">Current Scorers</div>
       <div id="scorersList"></div>
+    </div>
+
+    <!-- ACCESS MANAGEMENT (main only) -->
+    <div class="tab-panel-admin" id="admin-access">
+      <div class="admin-title"><i class="fas fa-users"></i> Sub Admin Access</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:1rem;">Generate invite codes for up to 3 sub admins. Share the code with them — they enter it on the login page. Revoke anytime.</div>
+      <div id="inviteSlots"></div>
     </div>
 
     <!-- ACTIVITY LOG -->
@@ -176,120 +260,158 @@
 <script src="../js/data.js"></script>
 <script src="../js/main.js"></script>
 <script>
-// ---- PIN SYSTEM ----
-const ADMINS = [
-  { name: 'Kenny (Main)', pin: '1234' },
-  { name: 'Admin 2', pin: '5678' },
-  { name: 'Admin 3', pin: '9999' },
-];
-// Change pins above — each person has their own
+// ============================================================
+// ADMIN CREDENTIALS — change these!
+// ============================================================
+const MAIN_ADMIN = {
+  email: 'atomickennylawal@gmail.com',
+  password: 'YOUR_PASSWORD_HERE', // ← paste your password here privately
+  name: 'MK (Main Admin)'
+};
 
-let pinInput = '';
+// ============================================================
+// INVITE CODE SYSTEM
+// ============================================================
+function getInviteCodes() {
+  return JSON.parse(localStorage.getItem('fc3codes') || JSON.stringify([
+    { slot: 1, code: null, name: 'Sub Admin 1', active: false },
+    { slot: 2, code: null, name: 'Sub Admin 2', active: false },
+    { slot: 3, code: null, name: 'Sub Admin 3', active: false },
+  ]));
+}
+function saveInviteCodes(codes) {
+  localStorage.setItem('fc3codes', JSON.stringify(codes));
+}
+function generateCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  return Array.from({length: 8}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
+}
 
-function pinPress(d) {
-  if (pinInput.length >= 4) return;
-  pinInput += d;
-  updateDots();
-  if (pinInput.length === 4) setTimeout(checkPin, 150);
+// ============================================================
+// LOGIN LOGIC
+// ============================================================
+function switchLoginTab(tab, btn) {
+  document.querySelectorAll('.login-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('mainLoginTab').style.display = tab === 'main' ? 'block' : 'none';
+  document.getElementById('subLoginTab').style.display = tab === 'sub' ? 'block' : 'none';
 }
-function pinBackspace() { pinInput = pinInput.slice(0,-1); updateDots(); }
-function pinClear() { pinInput = ''; updateDots(); }
-function updateDots() {
-  for (let i=0;i<4;i++) {
-    const dot=document.getElementById('pd'+i);
-    if(dot) dot.classList.toggle('filled', i < pinInput.length);
-  }
+
+function togglePass(id, btn) {
+  const inp = document.getElementById(id);
+  if (inp.type === 'password') { inp.type = 'text'; btn.innerHTML = '<i class="fas fa-eye-slash"></i>'; }
+  else { inp.type = 'password'; btn.innerHTML = '<i class="fas fa-eye"></i>'; }
 }
-function checkPin() {
-  const admin = ADMINS.find(a => a.pin === pinInput);
-  if (admin) {
-    sessionStorage.setItem('fc3admin', '1');
-    sessionStorage.setItem('fc3name', admin.name);
-    document.getElementById('loginScreen').style.display='none';
-    document.getElementById('adminPanel').style.display='block';
-    document.getElementById('adminNameBadge').textContent = '👤 ' + admin.name;
-    addLog('🔓 Logged in', admin.name);
-    initAdmin();
+
+function mainLogin() {
+  const email = document.getElementById('mainEmail').value.trim();
+  const pass = document.getElementById('mainPass').value;
+  if (email === MAIN_ADMIN.email && pass === MAIN_ADMIN.password) {
+    sessionStorage.setItem('fc3role', 'main');
+    sessionStorage.setItem('fc3name', MAIN_ADMIN.name);
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    addLog('🔓 Main admin logged in');
+    initAdmin('main');
   } else {
-    document.getElementById('loginError').style.display='block';
-    document.getElementById('pinGrid').classList.add('pin-shake');
-    setTimeout(()=>document.getElementById('pinGrid').classList.remove('pin-shake'), 400);
-    pinInput=''; updateDots();
+    document.getElementById('mainLoginError').style.display = 'block';
+    setTimeout(() => document.getElementById('mainLoginError').style.display = 'none', 3000);
   }
 }
-function logout() { sessionStorage.clear(); location.reload(); }
 
-if (sessionStorage.getItem('fc3admin')==='1') {
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('adminPanel').style.display='block';
-  const name = sessionStorage.getItem('fc3name')||'Admin';
-  const badge = document.getElementById('adminNameBadge');
-  if (badge) badge.textContent = '👤 ' + name;
+function subLogin() {
+  const code = document.getElementById('subCode').value.trim().toUpperCase();
+  const codes = getInviteCodes();
+  const match = codes.find(c => c.code === code && c.active);
+  if (match) {
+    sessionStorage.setItem('fc3role', 'sub');
+    sessionStorage.setItem('fc3name', match.name);
+    sessionStorage.setItem('fc3slot', match.slot);
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    addLog(`🔓 ${match.name} logged in via invite code`);
+    initAdmin('sub');
+  } else {
+    document.getElementById('subLoginError').style.display = 'block';
+    setTimeout(() => document.getElementById('subLoginError').style.display = 'none', 3000);
+  }
 }
 
-// ---- ACTIVITY LOG ----
-function addLog(action, who) {
-  const logs = JSON.parse(localStorage.getItem('fc3logs')||'[]');
-  logs.unshift({ action, who: who||sessionStorage.getItem('fc3name')||'Admin', time: new Date().toLocaleTimeString() });
-  if (logs.length > 50) logs.pop();
-  localStorage.setItem('fc3logs', JSON.stringify(logs));
+function logout() {
+  sessionStorage.clear();
+  location.reload();
 }
-function buildLog() {
-  const logs = JSON.parse(localStorage.getItem('fc3logs')||'[]');
-  const el = document.getElementById('activityLog');
-  if (!el) return;
-  if (logs.length === 0) { el.innerHTML='<p style="color:rgba(255,255,255,0.3);font-size:13px;">No activity yet.</p>'; return; }
-  el.innerHTML = logs.map(l=>`
-    <div class="log-entry">
-      <div class="log-time">${l.time}</div>
-      <div class="log-text"><strong>${l.who}</strong> — ${l.action}</div>
-    </div>`).join('');
-}
-function clearLog() { localStorage.removeItem('fc3logs'); buildLog(); }
 
-// ---- ADMIN TABS ----
+// ============================================================
+// INIT
+// ============================================================
+function initAdmin(role) {
+  const name = sessionStorage.getItem('fc3name');
+  document.getElementById('adminNameDisplay').textContent = '👤 ' + name;
+  document.getElementById('adminRoleBadge').textContent = role === 'main' ? 'Main Admin · Full Access' : 'Sub Admin · Scores & Announcements';
+
+  if (role === 'main') {
+    document.getElementById('mainAdminTabs').style.display = 'block';
+    buildTeamSelects();
+    buildScorersList();
+    buildInviteSlots();
+    document.getElementById('streamStatus').value = String(DATA.stream.isLive);
+    document.getElementById('ytUrl').value = DATA.stream.youtubeUrl || '';
+    document.getElementById('fbUrl').value = DATA.stream.facebookUrl || '';
+    document.getElementById('nextMatch').value = DATA.stream.nextMatchInfo || '';
+  } else {
+    document.getElementById('subAdminTabs').style.display = 'block';
+  }
+  buildMatchEditors();
+  buildAnnouncements();
+}
+
+// Auto-login if session exists
+const savedRole = sessionStorage.getItem('fc3role');
+if (savedRole) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  initAdmin(savedRole);
+}
+
+// ============================================================
+// TAB SWITCHING
+// ============================================================
 function showAdminTab(id) {
-  document.querySelectorAll('.tab-panel-admin').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('admin-'+id).classList.add('active');
+  document.querySelectorAll('.tab-panel-admin').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('admin-' + id).classList.add('active');
   event.currentTarget.classList.add('active');
-  if (id==='log') buildLog();
+  if (id === 'log') buildLog();
 }
 
 function showSaved(id) {
-  const el=document.getElementById(id);
-  if(!el)return;
+  const el = document.getElementById(id);
+  if (!el) return;
   el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'), 2500);
+  setTimeout(() => el.classList.remove('show'), 2500);
 }
 
-function initAdmin() {
-  buildMatchEditors();
-  buildTeamSelects();
-  buildAnnouncements();
-  buildScorersList();
-  document.getElementById('streamStatus').value = String(DATA.stream.isLive);
-  document.getElementById('ytUrl').value = DATA.stream.youtubeUrl||'';
-  document.getElementById('fbUrl').value = DATA.stream.facebookUrl||'';
-  document.getElementById('nextMatch').value = DATA.stream.nextMatchInfo||'';
-}
+function toggleMenu() { document.getElementById('mobileMenu')?.classList.toggle('open'); }
 
+// ============================================================
+// MATCH EDITORS
+// ============================================================
 function buildMatchEditors() {
-  const container=document.getElementById('matchEditors');
-  container.innerHTML='';
-  DATA.matches.forEach((m,i)=>{
-    const home=getTeam(m.home), away=getTeam(m.away);
-    const row=document.createElement('div');
-    row.className='match-edit-row';
-    row.innerHTML=`
+  const container = document.getElementById('matchEditors');
+  container.innerHTML = '';
+  DATA.matches.forEach((m, i) => {
+    const home = getTeam(m.home), away = getTeam(m.away);
+    const row = document.createElement('div');
+    row.className = 'match-edit-row';
+    row.innerHTML = `
       <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">${m.round} · ${m.date}</div>
-      <div class="match-edit-teams">
-        <div class="team-label">${home.name}</div>
-        <input type="number" min="0" max="99" value="${m.homeScore||0}" id="hs${i}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:60px;"/>
+      <div style="display:grid;grid-template-columns:1fr 60px 20px 60px 1fr;gap:8px;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:500;">${home.name}</div>
+        <input type="number" min="0" max="99" value="${m.homeScore||0}" id="hs${i}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:100%;"/>
         <div style="text-align:center;color:rgba(255,255,255,0.3);font-family:'Bebas Neue',sans-serif;font-size:20px;">:</div>
-        <input type="number" min="0" max="99" value="${m.awayScore||0}" id="as${i}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:60px;"/>
-        <div class="team-label right">${away.name}</div>
-        <div></div>
+        <input type="number" min="0" max="99" value="${m.awayScore||0}" id="as${i}" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px;font-size:18px;font-family:'Bebas Neue',sans-serif;color:#fff;text-align:center;width:100%;"/>
+        <div style="font-size:13px;font-weight:500;text-align:right;">${away.name}</div>
       </div>
       <div class="save-row">
         <select class="status-select" id="st${i}">
@@ -306,62 +428,67 @@ function buildMatchEditors() {
 }
 
 function saveMatch(i) {
-  const m=DATA.matches[i];
-  const prevHome=m.homeScore, prevAway=m.awayScore;
-  m.homeScore=parseInt(document.getElementById('hs'+i).value)||0;
-  m.awayScore=parseInt(document.getElementById('as'+i).value)||0;
-  m.status=document.getElementById('st'+i).value;
-  m.minute=document.getElementById('mn'+i).value;
+  const m = DATA.matches[i];
+  const prevTotal = m.homeScore + m.awayScore;
+  m.homeScore = parseInt(document.getElementById('hs'+i).value)||0;
+  m.awayScore = parseInt(document.getElementById('as'+i).value)||0;
+  m.status = document.getElementById('st'+i).value;
+  m.minute = document.getElementById('mn'+i).value;
   showSaved('saved'+i);
-  const home=getTeam(m.home), away=getTeam(m.away);
-  const totalGoals=m.homeScore+m.awayScore;
-  const prevTotal=prevHome+prevAway;
-  if(totalGoals > prevTotal) {
-    addLog(`⚽ Goal scored — ${home.name} ${m.homeScore}:${m.awayScore} ${away.name}`);
+  const home = getTeam(m.home), away = getTeam(m.away);
+  const who = sessionStorage.getItem('fc3name') || 'Admin';
+  if (m.homeScore + m.awayScore > prevTotal) {
+    addLog(`⚽ Goal — ${home.name} ${m.homeScore}:${m.awayScore} ${away.name}`, who);
   } else {
-    addLog(`📝 Score updated — ${home.name} ${m.homeScore}:${m.awayScore} ${away.name}`);
+    addLog(`📝 Score updated — ${home.name} ${m.homeScore}:${m.awayScore} ${away.name}`, who);
   }
 }
 
+// ============================================================
+// FIXTURES
+// ============================================================
 function buildTeamSelects() {
-  ['newHome','newAway','scorerTeam'].forEach(id=>{
-    const sel=document.getElementById(id); if(!sel)return;
-    sel.innerHTML='';
-    DATA.teams.forEach(t=>{ const o=document.createElement('option'); o.value=t.id; o.textContent=`${t.name} (Grp ${t.group})`; sel.appendChild(o); });
+  ['newHome','newAway','scorerTeam'].forEach(id => {
+    const sel = document.getElementById(id); if (!sel) return;
+    sel.innerHTML = '';
+    DATA.teams.forEach(t => { const o = document.createElement('option'); o.value = t.id; o.textContent = `${t.name} (Grp ${t.group})`; sel.appendChild(o); });
   });
 }
 
 function addFixture() {
-  const home=parseInt(document.getElementById('newHome').value);
-  const away=parseInt(document.getElementById('newAway').value);
-  if(home===away){alert('Home and away must be different!');return;}
-  const date=document.getElementById('newDate').value;
-  const time=document.getElementById('newTime').value;
-  const round=document.getElementById('newRound').value||'Group Stage';
-  const venue=document.getElementById('newVenue').value||'Field A';
-  const newId=Math.max(...DATA.matches.map(m=>m.id))+1;
-  DATA.matches.push({id:newId,home,away,homeScore:0,awayScore:0,status:'upcoming',minute:'',round,date,time,venue});
+  const home = parseInt(document.getElementById('newHome').value);
+  const away = parseInt(document.getElementById('newAway').value);
+  if (home === away) { alert('Home and away must be different!'); return; }
+  const date = document.getElementById('newDate').value;
+  const time = document.getElementById('newTime').value;
+  const round = document.getElementById('newRound').value || 'Group Stage';
+  const venue = document.getElementById('newVenue').value || 'Field A';
+  const newId = Math.max(...DATA.matches.map(m => m.id)) + 1;
+  DATA.matches.push({id:newId, home, away, homeScore:0, awayScore:0, status:'upcoming', minute:'', round, date, time, venue});
   buildMatchEditors();
   addLog(`📅 Fixture added — ${getTeam(home).name} vs ${getTeam(away).name}`);
   showSaved('fixtureSaved');
 }
 
+// ============================================================
+// ANNOUNCEMENTS
+// ============================================================
 function postAnnouncement() {
-  const text=document.getElementById('newAnnounce').value.trim();
-  if(!text)return;
-  const today=new Date().toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'});
-  DATA.announcements.unshift({date:today,text,important:false});
-  document.getElementById('newAnnounce').value='';
+  const text = document.getElementById('newAnnounce').value.trim();
+  if (!text) return;
+  const today = new Date().toLocaleDateString('en-NG', {day:'numeric', month:'long', year:'numeric'});
+  DATA.announcements.unshift({date:today, text, important:false});
+  document.getElementById('newAnnounce').value = '';
   buildAnnouncements();
-  addLog('📢 Announcement posted');
+  addLog(`📢 Announcement posted by ${sessionStorage.getItem('fc3name')||'Admin'}`);
   showSaved('announceSaved');
 }
 
 function buildAnnouncements() {
-  const c=document.getElementById('currentAnnouncements'); c.innerHTML='';
-  DATA.announcements.forEach((a,i)=>{
-    const div=document.createElement('div'); div.className='announce-card'; div.style.marginBottom='8px';
-    div.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:flex-start;">
+  const c = document.getElementById('currentAnnouncements'); c.innerHTML = '';
+  DATA.announcements.forEach((a, i) => {
+    const div = document.createElement('div'); div.className = 'announce-card'; div.style.marginBottom = '8px';
+    div.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start;">
       <div><div class="announce-date">${a.date}</div><div class="announce-text">${a.text}</div></div>
       <button onclick="deleteAnnouncement(${i})" style="background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:4px;padding:4px 8px;cursor:pointer;font-size:11px;margin-left:10px;flex-shrink:0;"><i class="fas fa-trash"></i></button>
     </div>`;
@@ -370,37 +497,43 @@ function buildAnnouncements() {
 }
 function deleteAnnouncement(i) { DATA.announcements.splice(i,1); buildAnnouncements(); addLog('🗑 Announcement deleted'); }
 
+// ============================================================
+// STREAM
+// ============================================================
 function saveStream() {
-  DATA.stream.isLive=document.getElementById('streamStatus').value==='true';
-  DATA.stream.youtubeUrl=document.getElementById('ytUrl').value;
-  DATA.stream.facebookUrl=document.getElementById('fbUrl').value;
-  DATA.stream.nextMatchInfo=document.getElementById('nextMatch').value;
-  addLog(`📡 Stream ${DATA.stream.isLive?'set LIVE':'set offline'}`);
+  DATA.stream.isLive = document.getElementById('streamStatus').value === 'true';
+  DATA.stream.youtubeUrl = document.getElementById('ytUrl').value;
+  DATA.stream.facebookUrl = document.getElementById('fbUrl').value;
+  DATA.stream.nextMatchInfo = document.getElementById('nextMatch').value;
+  addLog(`📡 Stream ${DATA.stream.isLive ? 'set LIVE' : 'set offline'}`);
   showSaved('streamSaved');
 }
 
+// ============================================================
+// SCORERS
+// ============================================================
 function addScorer() {
-  const name=document.getElementById('scorerName').value.trim();
-  const team=parseInt(document.getElementById('scorerTeam').value);
-  const jersey=parseInt(document.getElementById('scorerJersey').value)||0;
-  const goals=parseInt(document.getElementById('scorerGoals').value)||0;
-  const assists=parseInt(document.getElementById('scorerAssists').value)||0;
-  if(!name)return;
-  const existing=DATA.scorers.find(s=>s.name===name&&s.team===team);
-  if(existing){existing.goals=goals;existing.assists=assists;existing.jersey=jersey;}
-  else DATA.scorers.push({name,team,jersey,goals,assists});
+  const name = document.getElementById('scorerName').value.trim();
+  const team = parseInt(document.getElementById('scorerTeam').value);
+  const jersey = parseInt(document.getElementById('scorerJersey').value)||0;
+  const goals = parseInt(document.getElementById('scorerGoals').value)||0;
+  const assists = parseInt(document.getElementById('scorerAssists').value)||0;
+  if (!name) return;
+  const existing = DATA.scorers.find(s => s.name === name && s.team === team);
+  if (existing) { existing.goals=goals; existing.assists=assists; existing.jersey=jersey; }
+  else DATA.scorers.push({name, team, jersey, goals, assists});
   buildScorersList();
   addLog(`⚽ Scorer updated — ${name} (${goals} goals)`);
   showSaved('scorerSaved');
-  document.getElementById('scorerName').value='';
+  document.getElementById('scorerName').value = '';
 }
 
 function buildScorersList() {
-  const c=document.getElementById('scorersList'); c.innerHTML='';
-  [...DATA.scorers].sort((a,b)=>b.goals-a.goals).forEach(s=>{
-    const team=getTeam(s.team);
-    const div=document.createElement('div'); div.className='match-edit-row';
-    div.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;">
+  const c = document.getElementById('scorersList'); c.innerHTML = '';
+  [...DATA.scorers].sort((a,b) => b.goals-a.goals).forEach(s => {
+    const team = getTeam(s.team);
+    const div = document.createElement('div'); div.className = 'match-edit-row';
+    div.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;">
       <div><div style="font-weight:600;font-size:14px;">${s.name} <span style="font-size:11px;color:rgba(255,255,255,0.4)">#${s.jersey}</span></div>
       <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;">${team.name}</div></div>
       <div style="display:flex;gap:16px;align-items:center;">
@@ -411,7 +544,80 @@ function buildScorersList() {
   });
 }
 
-if(sessionStorage.getItem('fc3admin')==='1') initAdmin();
+// ============================================================
+// INVITE CODE MANAGEMENT
+// ============================================================
+function buildInviteSlots() {
+  const codes = getInviteCodes();
+  const container = document.getElementById('inviteSlots');
+  container.innerHTML = '';
+  codes.forEach((slot, i) => {
+    const div = document.createElement('div');
+    div.className = 'invite-slot';
+    div.innerHTML = `
+      <div class="invite-slot-header">
+        <div class="invite-slot-name">${slot.name}</div>
+        <span class="invite-slot-badge ${slot.active ? 'badge-active' : 'badge-empty'}">${slot.active ? 'Active' : 'No Access'}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        ${slot.active && slot.code ? `<div class="code-display">${slot.code}</div>` : '<div style="font-size:13px;color:rgba(255,255,255,0.3);margin-right:8px;">No code generated</div>'}
+        ${slot.active
+          ? `<button class="revoke-btn" onclick="revokeCode(${i})"><i class="fas fa-ban"></i> Revoke</button>`
+          : `<button class="generate-btn" onclick="generateSlotCode(${i})"><i class="fas fa-key"></i> Generate Code</button>`
+        }
+        ${slot.active ? `<button class="generate-btn" onclick="copyCode('${slot.code}')"><i class="fas fa-copy"></i> Copy</button>` : ''}
+      </div>
+      ${slot.active ? `<div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:8px;"><i class="fas fa-info-circle"></i> Share this code with ${slot.name}. They enter it on the sub admin login tab.</div>` : ''}`;
+    container.appendChild(div);
+  });
+}
+
+function generateSlotCode(i) {
+  const codes = getInviteCodes();
+  codes[i].code = generateCode();
+  codes[i].active = true;
+  saveInviteCodes(codes);
+  addLog(`🔑 Invite code generated for ${codes[i].name}`);
+  buildInviteSlots();
+}
+
+function revokeCode(i) {
+  if (!confirm('Revoke this code? The sub admin will be logged out immediately.')) return;
+  const codes = getInviteCodes();
+  addLog(`🚫 Access revoked for ${codes[i].name}`);
+  codes[i].code = null;
+  codes[i].active = false;
+  saveInviteCodes(codes);
+  buildInviteSlots();
+}
+
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(() => showToast('Code copied! Share with your sub admin.'));
+}
+
+// ============================================================
+// ACTIVITY LOG
+// ============================================================
+function addLog(action, who) {
+  const logs = JSON.parse(localStorage.getItem('fc3logs')||'[]');
+  logs.unshift({ action, who: who || sessionStorage.getItem('fc3name') || 'Admin', time: new Date().toLocaleTimeString() });
+  if (logs.length > 100) logs.pop();
+  localStorage.setItem('fc3logs', JSON.stringify(logs));
+}
+
+function buildLog() {
+  const logs = JSON.parse(localStorage.getItem('fc3logs')||'[]');
+  const el = document.getElementById('activityLog');
+  if (!el) return;
+  if (!logs.length) { el.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:13px;">No activity yet.</p>'; return; }
+  el.innerHTML = logs.map(l => `
+    <div class="log-entry">
+      <div class="log-time">${l.time}</div>
+      <div class="log-text"><strong>${l.who}</strong> — ${l.action}</div>
+    </div>`).join('');
+}
+
+function clearLog() { localStorage.removeItem('fc3logs'); buildLog(); }
 </script>
 </body>
 </html>
