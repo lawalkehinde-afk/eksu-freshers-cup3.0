@@ -1,5 +1,5 @@
 /* =============================================
-   EKSU FRESHER'S CUP 3.0 — ANIMATIONS
+   EKSU FRESHER'S CUP 3.0 — ANIMATIONS & THEMES
    ============================================= */
 
 @media (prefers-reduced-motion: reduce) {
@@ -8,137 +8,165 @@
 
 body { padding-top: 60px !important; }
 
-/* ---- DARK / LIGHT MODE ---- */
-body.light-mode { background: #f0f0f8 !important; color: #1a1a2e !important; }
+/* ============================================= 
+   THEME SYSTEM — 3 MODES
+   ============================================= */
+
+/* SEPIA MODE */
+body.sepia-mode {
+  background: #f5efe6 !important;
+  color: #2c1810 !important;
+}
+body.sepia-mode .nav {
+  background: rgba(245,239,230,0.97) !important;
+  border-bottom-color: rgba(44,24,16,0.1) !important;
+}
+body.sepia-mode .logo-title { color: #2c1810 !important; }
+body.sepia-mode .logo-sub { color: #8b6914 !important; }
+body.sepia-mode .nav-links a { color: rgba(44,24,16,0.7) !important; }
+body.sepia-mode .nav-links a:hover { color: #8b6914 !important; }
+body.sepia-mode .hero { background: linear-gradient(135deg, #2c1810, #5c3317) !important; }
+body.sepia-mode .match-card, body.sepia-mode .admin-card,
+body.sepia-mode .vote-card, body.sepia-mode .announce-card,
+body.sepia-mode .match-edit-row {
+  background: #fff8f0 !important;
+  border-color: rgba(44,24,16,0.1) !important;
+  color: #2c1810 !important;
+}
+body.sepia-mode .team-name, body.sepia-mode .scorer-name { color: #2c1810 !important; }
+body.sepia-mode .team-dept, body.sepia-mode .scorer-team,
+body.sepia-mode .match-round { color: #8b6914 !important; }
+body.sepia-mode .score-display { background: #2c1810 !important; color: #fff !important; }
+body.sepia-mode .dark-section { background: rgba(44,24,16,0.04) !important; }
+body.sepia-mode .quick-stats { background: rgba(139,105,20,0.06) !important; border-color: rgba(139,105,20,0.15) !important; }
+body.sepia-mode .stat-num { color: #8b6914 !important; }
+body.sepia-mode .stat-label { color: rgba(44,24,16,0.5) !important; }
+body.sepia-mode .section-title { color: #2c1810 !important; }
+body.sepia-mode .see-all { color: #8b6914 !important; }
+body.sepia-mode .standings-table td, body.sepia-mode .standings-table th { color: #2c1810 !important; }
+body.sepia-mode .standings-table tr:hover td { background: rgba(44,24,16,0.03) !important; }
+body.sepia-mode .footer { background: rgba(44,24,16,0.06) !important; }
+body.sepia-mode .footer-logo { color: #8b6914 !important; }
+body.sepia-mode .footer-sub, body.sepia-mode .footer-copy { color: rgba(44,24,16,0.4) !important; }
+body.sepia-mode .footer-links a { color: rgba(44,24,16,0.5) !important; }
+body.sepia-mode .tab-btn { background: rgba(44,24,16,0.06) !important; color: rgba(44,24,16,0.5) !important; border-color: rgba(44,24,16,0.1) !important; }
+body.sepia-mode .tab-btn.active { background: #8b6914 !important; color: #fff !important; border-color: #8b6914 !important; }
+body.sepia-mode .announce-card { border-left-color: #8b6914 !important; }
+body.sepia-mode .announce-date { color: #8b6914 !important; }
+body.sepia-mode .announce-text { color: rgba(44,24,16,0.75) !important; }
+body.sepia-mode .form-input, body.sepia-mode .form-select { background: #fff8f0 !important; color: #2c1810 !important; border-color: rgba(44,24,16,0.15) !important; }
+body.sepia-mode .match-time-badge.ft { background: rgba(44,24,16,0.08) !important; color: rgba(44,24,16,0.5) !important; }
+body.sepia-mode .countdown-section { background: linear-gradient(135deg, rgba(139,105,20,0.08), rgba(44,24,16,0.4)) !important; border-color: rgba(139,105,20,0.2) !important; }
+body.sepia-mode .countdown-num { color: #8b6914 !important; }
+body.sepia-mode .countdown-unit { background: rgba(44,24,16,0.06) !important; border-color: rgba(44,24,16,0.1) !important; }
+body.sepia-mode .countdown-sep { color: rgba(139,105,20,0.4) !important; }
+body.sepia-mode .mobile-menu { background: rgba(245,239,230,0.98) !important; }
+body.sepia-mode .mobile-menu a { color: rgba(44,24,16,0.8) !important; }
+
+/* LIGHT MODE */
+body.light-mode {
+  background: #f0f0f8 !important;
+  color: #1a1a2e !important;
+}
 body.light-mode .nav { background: rgba(240,240,248,0.97) !important; border-bottom-color: rgba(26,10,46,0.1) !important; }
-body.light-mode .match-card, body.light-mode .admin-card, body.light-mode .vote-card,
-body.light-mode .announce-card, body.light-mode .match-edit-row {
-  background: #ffffff !important; border-color: rgba(0,0,0,0.08) !important; color: #1a1a2e !important;
+body.light-mode .logo-title { color: #1a1a2e !important; }
+body.light-mode .nav-links a { color: rgba(26,10,46,0.65) !important; }
+body.light-mode .nav-links a:hover { color: #4ade80 !important; }
+body.light-mode .hero { background: linear-gradient(135deg, #1a0a2e, #2d1060) !important; }
+body.light-mode .match-card, body.light-mode .admin-card,
+body.light-mode .vote-card, body.light-mode .announce-card,
+body.light-mode .match-edit-row {
+  background: #ffffff !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  color: #1a1a2e !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
 }
 body.light-mode .team-name, body.light-mode .scorer-name { color: #1a1a2e !important; }
 body.light-mode .team-dept, body.light-mode .scorer-team, body.light-mode .match-round { color: #666680 !important; }
 body.light-mode .score-display { background: #1a0a2e !important; color: #fff !important; }
-body.light-mode .dark-section { background: rgba(0,0,0,0.03) !important; }
+body.light-mode .dark-section { background: rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.05) !important; }
+body.light-mode .quick-stats { background: rgba(74,222,128,0.06) !important; }
+body.light-mode .stat-label { color: rgba(26,10,46,0.45) !important; }
+body.light-mode .section-title { color: #1a1a2e !important; }
 body.light-mode .standings-table td, body.light-mode .standings-table th { color: #1a1a2e !important; }
-body.light-mode .footer { background: rgba(26,10,46,0.08) !important; }
-body.light-mode .form-input, body.light-mode .form-select, body.light-mode .status-select {
-  background: #f0f0ff !important; color: #1a1a2e !important; border-color: rgba(0,0,0,0.15) !important;
-}
-body.light-mode .tab-btn { background: #e8e8f5 !important; color: #444 !important; }
-body.light-mode .tab-btn.active { background: #4ade80 !important; color: #14532d !important; }
+body.light-mode .standings-table tr:hover td { background: rgba(0,0,0,0.02) !important; }
+body.light-mode .footer { background: rgba(26,10,46,0.06) !important; }
+body.light-mode .tab-btn { background: #e8e8f5 !important; color: #555 !important; border-color: rgba(0,0,0,0.08) !important; }
+body.light-mode .tab-btn.active { background: #4ade80 !important; color: #14532d !important; border-color: #4ade80 !important; }
+body.light-mode .form-input, body.light-mode .form-select { background: #f5f5ff !important; color: #1a1a2e !important; border-color: rgba(0,0,0,0.12) !important; }
+body.light-mode .mobile-menu { background: rgba(240,240,248,0.98) !important; }
+body.light-mode .mobile-menu a { color: rgba(26,10,46,0.8) !important; }
+body.light-mode .countdown-section { background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(26,10,46,0.05)) !important; }
+body.light-mode .countdown-unit { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.08) !important; }
+body.light-mode .match-time-badge.ft { background: rgba(0,0,0,0.06) !important; color: #666 !important; }
 
-/* ---- THEME TOGGLE ---- */
+/* ============================================= 
+   THEME TOGGLE BUTTON
+   ============================================= */
 .theme-toggle {
   position: fixed; bottom: 24px; right: 20px; z-index: 998;
   width: 42px; height: 42px; border-radius: 50%;
   background: #1a0a2e; border: 2px solid rgba(74,222,128,0.5);
-  color: #4ade80; font-size: 18px; cursor: pointer;
+  color: #4ade80; font-size: 16px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-  transition: transform 0.2s;
+  transition: transform 0.2s, background 0.3s;
 }
 .theme-toggle:hover { transform: scale(1.1); }
-body.light-mode .theme-toggle { background: #fff; color: #1a0a2e; border-color: rgba(26,10,46,0.3); }
+body.sepia-mode .theme-toggle { background: #2c1810; border-color: rgba(139,105,20,0.5); color: #8b6914; }
+body.light-mode .theme-toggle { background: #fff; border-color: rgba(26,10,46,0.2); color: #1a0a2e; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
 
-/* ---- COUNTDOWN ---- */
+/* ============================================= 
+   COUNTDOWN
+   ============================================= */
 .countdown-section {
   background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(26,10,46,0.4));
   border: 1px solid rgba(74,222,128,0.2);
   border-radius: 14px; padding: 1.5rem; margin: 1.5rem 0; text-align: center;
 }
-.countdown-label {
-  font-size: 11px; color: #4ade80; text-transform: uppercase;
-  letter-spacing: 2px; margin-bottom: 6px; font-weight: 600;
-}
+.countdown-label { font-size: 11px; color: #4ade80; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; font-weight: 600; }
 .countdown-match { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 1.25rem; }
 .countdown-grid { display: flex; justify-content: center; align-items: center; gap: 8px; }
-.countdown-unit {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px; padding: 12px 16px; min-width: 64px; text-align: center;
-}
-.countdown-num {
-  font-family: 'Bebas Neue', sans-serif; font-size: 38px;
-  color: #4ade80; line-height: 1; display: block;
-}
-.countdown-unit-label {
-  font-size: 9px; color: rgba(255,255,255,0.35);
-  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;
-}
-.countdown-sep {
-  font-family: 'Bebas Neue', sans-serif; font-size: 32px;
-  color: rgba(74,222,128,0.4); margin-bottom: 16px;
-}
+.countdown-unit { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px 16px; min-width: 64px; text-align: center; }
+.countdown-num { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #4ade80; line-height: 1; display: block; }
+.countdown-unit-label { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+.countdown-sep { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: rgba(74,222,128,0.4); margin-bottom: 16px; }
 
-/* ---- PAGE ANIMATIONS ---- */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* ============================================= 
+   PAGE ANIMATIONS
+   ============================================= */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 .hero-badge { animation: fadeUp 0.5s ease 0.1s both; }
 .hero-title { animation: fadeUp 0.6s ease 0.2s both; }
 .hero-sub { animation: fadeUp 0.5s ease 0.35s both; }
 .hero-cta { animation: fadeUp 0.5s ease 0.45s both; }
+.match-card, .scorer-row, .announce-card, .stat-card { opacity:0; transform:translateY(18px); transition:opacity 0.4s ease,transform 0.4s ease; }
+.match-card.visible, .scorer-row.visible, .announce-card.visible, .stat-card.visible { opacity:1; transform:translateY(0); }
 
-.match-card, .scorer-row, .announce-card, .stat-card {
-  opacity: 0; transform: translateY(18px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-.match-card.visible, .scorer-row.visible, .announce-card.visible, .stat-card.visible {
-  opacity: 1; transform: translateY(0);
-}
+/* ============================================= 
+   CONFETTI
+   ============================================= */
+.confetti-piece { position:fixed; top:-10px; border-radius:2px; animation:confettiFall linear forwards; z-index:99999; pointer-events:none; }
+@keyframes confettiFall { 0%{transform:translateY(0) rotate(0deg);opacity:1;} 100%{transform:translateY(100vh) rotate(720deg);opacity:0;} }
 
-/* ---- CONFETTI ---- */
-.confetti-piece {
-  position: fixed; top: -10px; border-radius: 2px;
-  animation: confettiFall linear forwards; z-index: 99999; pointer-events: none;
-}
-@keyframes confettiFall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
+/* ============================================= 
+   TOAST
+   ============================================= */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(10px); background:#1a0a2e; border:1px solid rgba(74,222,128,0.3); border-radius:8px; padding:10px 18px; font-size:13px; color:#fff; z-index:9996; opacity:0; transition:all 0.3s ease; white-space:nowrap; pointer-events:none; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* ---- TOAST ---- */
-.toast {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: #1a0a2e; border: 1px solid rgba(74,222,128,0.3);
-  border-radius: 8px; padding: 10px 18px; font-size: 13px; color: #fff;
-  z-index: 9996; opacity: 0; transition: all 0.3s ease; white-space: nowrap; pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* ---- PIN ADMIN ---- */
-.pin-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; max-width: 240px; margin: 1rem auto; }
-.pin-btn {
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 10px; padding: 16px; font-size: 20px;
-  font-family: 'Bebas Neue', sans-serif;
-  color: #fff; cursor: pointer; transition: all 0.15s; text-align: center;
-}
-.pin-btn:hover { background: rgba(74,222,128,0.15); border-color: rgba(74,222,128,0.4); color: #4ade80; }
-.pin-btn:active { transform: scale(0.94); }
-.pin-display { display: flex; justify-content: center; gap: 12px; margin: 1rem 0; }
-.pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); transition: all 0.2s; }
-.pin-dot.filled { background: #4ade80; border-color: #4ade80; }
-.pin-shake { animation: pinShake 0.4s ease; }
-@keyframes pinShake {
-  0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)}
-  40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)}
-}
-
-/* ---- ACTIVITY LOG ---- */
-.log-entry { display:flex; gap:10px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); font-size:13px; }
-.log-time { color:rgba(255,255,255,0.3); min-width:80px; font-size:11px; margin-top:2px; }
-.log-text { color:rgba(255,255,255,0.75); line-height:1.5; }
-
-/* ---- GALLERY ---- */
-.gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin-top:1rem; }
-.gallery-item { aspect-ratio:4/3; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; cursor:pointer; transition:transform 0.2s,border-color 0.2s; }
-.gallery-item:hover { transform:scale(1.02); border-color:rgba(74,222,128,0.4); }
-.gallery-item img { width:100%; height:100%; object-fit:cover; }
-
-/* ---- SAVED BADGE ---- */
+/* ============================================= 
+   PIN / ADMIN
+   ============================================= */
 .saved-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(74,222,128,0.12); color:#4ade80; font-size:12px; padding:4px 10px; border-radius:4px; opacity:0; transition:opacity 0.3s; margin-left:8px; }
 .saved-badge.show { opacity:1; }
 .tab-panel-admin { display:none; }
 .tab-panel-admin.active { display:block; }
+
+/* ============================================= 
+   GALLERY
+   ============================================= */
+.gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin-top:1rem; }
+.gallery-item { aspect-ratio:4/3; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; cursor:pointer; transition:transform 0.2s,border-color 0.2s; }
+.gallery-item:hover { transform:scale(1.02); border-color:rgba(74,222,128,0.4); }
+.gallery-item img { width:100%; height:100%; object-fit:cover; }

@@ -1,19 +1,33 @@
 // EKSU FRESHER'S CUP 3.0 — MAIN JS
 
+// ---- 3 THEME MODES ----
+const THEMES = ['dark', 'sepia', 'light'];
+const THEME_ICONS = { dark: '🌑', sepia: '📜', light: '☀️' };
+
 function initTheme() {
-  const saved = localStorage.getItem('fc3theme');
-  if (saved === 'light') document.body.classList.add('light-mode');
-  updateThemeBtn();
+  const saved = localStorage.getItem('fc3theme') || 'dark';
+  applyTheme(saved);
 }
-function updateThemeBtn() {
+
+function applyTheme(theme) {
+  document.body.classList.remove('sepia-mode', 'light-mode');
+  if (theme === 'sepia') document.body.classList.add('sepia-mode');
+  if (theme === 'light') document.body.classList.add('light-mode');
+  localStorage.setItem('fc3theme', theme);
   const btn = document.getElementById('themeToggle');
-  if (btn) btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+  if (btn) btn.textContent = THEME_ICONS[theme];
 }
-function toggleTheme() {
-  document.body.classList.toggle('light-mode');
-  localStorage.setItem('fc3theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-  updateThemeBtn();
+
+function cycleTheme() {
+  const current = localStorage.getItem('fc3theme') || 'dark';
+  const idx = THEMES.indexOf(current);
+  const next = THEMES[(idx + 1) % THEMES.length];
+  applyTheme(next);
 }
+
+// Keep old toggleTheme for any pages that still use it
+function toggleTheme() { cycleTheme(); }
+
 function toggleMenu() {
   document.getElementById('mobileMenu')?.classList.toggle('open');
 }

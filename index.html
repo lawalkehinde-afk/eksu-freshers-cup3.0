@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EKSU Fresher's Cup 3.0</title>
+<title>EKSU Fresher's Cup 3.0 — Official Tournament Hub</title>
+<link rel="icon" href="images/favicon.png"/>
+<meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -14,7 +16,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <span class="logo-icon"><img src="images/favicon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" alt="EKSU FC logo"/></span>
       <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
     </a>
     <div class="nav-links">
@@ -36,6 +38,7 @@
     <a href="pages/stats.html">Stats</a>
     <a href="pages/gallery.html">Gallery</a>
     <a href="pages/stream.html">Live Stream</a>
+    <a href="pages/feedback.html">Leave a Review</a>
     <a href="pages/admin.html" style="color:#4ade80">Admin Panel</a>
   </div>
 </nav>
@@ -117,15 +120,20 @@
     <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
     <div class="footer-sub">Ekiti State University · Fierce Tournament · 2026</div>
     <div class="footer-links">
-      <a href="pages/scores.html">Scores</a><a href="pages/fixtures.html">Fixtures</a>
-      <a href="pages/standings.html">Standings</a><a href="pages/bracket.html">Bracket</a>
-      <a href="pages/gallery.html">Gallery</a><a href="pages/admin.html">Admin</a>
+      <a href="pages/scores.html">Scores</a>
+      <a href="pages/fixtures.html">Fixtures</a>
+      <a href="pages/standings.html">Standings</a>
+      <a href="pages/bracket.html">Bracket</a>
+      <a href="pages/gallery.html">Gallery</a>
+      <a href="pages/feedback.html">Leave a Review</a>
+      <a href="pages/legal.html">Terms & Privacy</a>
+      <a href="pages/admin.html">Admin</a>
     </div>
-    <div class="footer-copy">LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
   </div>
 </footer>
 
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark/light mode">☀️</button>
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()" title="Switch theme">🌑</button>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>

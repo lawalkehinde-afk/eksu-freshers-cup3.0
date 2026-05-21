@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/>
+<link rel="icon" href="../images/favicon.png"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Standings · EKSU Fresher's Cup 3.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
@@ -43,7 +44,7 @@
   <div class="container">
     <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
     <div class="footer-links"><a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="bracket.html">Bracket</a></div>
-    <div class="footer-copy">LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
   </div>
 </footer>
 
@@ -52,7 +53,7 @@
 <!-- GOAL POPUP -->
 <div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
 <div class="goal-popup" id="goalPopup"><button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button><div class="goal-popup-icon">⚽</div><div class="goal-popup-title">GOAL!</div><div class="goal-popup-scorer" id="gpScorer"></div><div class="goal-popup-match" id="gpMatch"></div><div class="goal-popup-score" id="gpScore"></div></div>
-<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()">☀️</button>
 <script src="../js/data.js"></script>
 <script>
 function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
