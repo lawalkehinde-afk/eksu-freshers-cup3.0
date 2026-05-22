@@ -4,6 +4,12 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>EKSU Fresher's Cup 3.0 — Official Tournament Hub</title>
 <link rel="icon" href="images/favicon.png"/>
+<link rel="apple-touch-icon" href="images/favicon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#1a0a2e"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="FierceCup"/>
 <meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
@@ -16,7 +22,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <span class="logo-icon"><img src="images/favicon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" alt="EKSU FC logo"/></span>
+      <span class="logo-icon"><img src="images/favicon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" alt="logo"/></span>
       <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
     </a>
     <div class="nav-links">
@@ -133,11 +139,28 @@
   </div>
 </footer>
 
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwaBanner">
+  <img src="images/favicon.png" class="pwa-icon" alt="FierceCup"/>
+  <div class="pwa-text">
+    <div class="pwa-title">Install FierceCup App</div>
+    <div class="pwa-sub">Fast install · Works offline · Always updated</div>
+  </div>
+  <button class="pwa-install-btn" onclick="installPWA()"><i class="fas fa-download"></i> Install</button>
+  <button class="pwa-close" onclick="closePWABanner()"><i class="fas fa-times"></i></button>
+</div>
+
+<!-- THEME TOGGLE -->
 <button class="theme-toggle" id="themeToggle" onclick="cycleTheme()" title="Switch theme">🌑</button>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
 <script>
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+
 const rankCls = ['gold','silver','bronze'];
 const scoresEl = document.getElementById('latestScores');
 DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4).forEach(m=>{

@@ -1,0 +1,15 @@
+{
+  "name": "EKSU Fresher's Cup 3.0",
+  "short_name": "FierceCup",
+  "description": "Official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings and more",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0d0620",
+  "theme_color": "#1a0a2e",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "images/favicon.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "images/favicon.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "images/favicon.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

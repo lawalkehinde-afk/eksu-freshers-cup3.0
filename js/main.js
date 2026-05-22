@@ -8,7 +8,6 @@ function initTheme() {
   const saved = localStorage.getItem('fc3theme') || 'dark';
   applyTheme(saved);
 }
-
 function applyTheme(theme) {
   document.body.classList.remove('sepia-mode', 'light-mode');
   if (theme === 'sepia') document.body.classList.add('sepia-mode');
@@ -17,20 +16,13 @@ function applyTheme(theme) {
   const btn = document.getElementById('themeToggle');
   if (btn) btn.textContent = THEME_ICONS[theme];
 }
-
 function cycleTheme() {
   const current = localStorage.getItem('fc3theme') || 'dark';
-  const idx = THEMES.indexOf(current);
-  const next = THEMES[(idx + 1) % THEMES.length];
+  const next = THEMES[(THEMES.indexOf(current) + 1) % THEMES.length];
   applyTheme(next);
 }
-
-// Keep old toggleTheme for any pages that still use it
 function toggleTheme() { cycleTheme(); }
-
-function toggleMenu() {
-  document.getElementById('mobileMenu')?.classList.toggle('open');
-}
+function toggleMenu() { document.getElementById('mobileMenu')?.classList.toggle('open'); }
 
 // ---- COUNTDOWN ----
 function buildCountdown() {
@@ -58,6 +50,42 @@ function buildCountdown() {
     set('cdSecs', Math.floor((diff%60000)/1000));
   }
   tick(); setInterval(tick, 1000);
+}
+
+// ---- PWA INSTALL ----
+let deferredPrompt = null;
+function initPWA() {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show banner after 3 seconds if not already installed
+    if (!localStorage.getItem('fc3pwa_installed')) {
+      setTimeout(() => {
+        const banner = document.getElementById('pwaBanner');
+        if (banner) banner.classList.add('show');
+      }, 3000);
+    }
+  });
+  window.addEventListener('appinstalled', () => {
+    localStorage.setItem('fc3pwa_installed', '1');
+    closePWABanner();
+  });
+}
+function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(result => {
+      if (result.outcome === 'accepted') {
+        localStorage.setItem('fc3pwa_installed', '1');
+      }
+      deferredPrompt = null;
+      closePWABanner();
+    });
+  }
+}
+function closePWABanner() {
+  const banner = document.getElementById('pwaBanner');
+  if (banner) banner.classList.remove('show');
 }
 
 // ---- CONFETTI ----
@@ -96,7 +124,7 @@ function showToast(msg) {
 
 // ---- INIT ----
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme(); buildCountdown(); initScrollAnimations();
+  initTheme(); buildCountdown(); initScrollAnimations(); initPWA();
   if (typeof DATA !== 'undefined' && DATA.bracket?.champion && DATA.bracket.champion !== 'TBD') {
     setTimeout(launchConfetti, 600);
   }
