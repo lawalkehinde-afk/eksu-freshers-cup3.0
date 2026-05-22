@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" href="../images/favicon.png"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gallery · EKSU Fresher's Cup 3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
+<style>
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:1rem;}
+.gallery-item{aspect-ratio:4/3;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.2s,border-color 0.2s;position:relative;}
+.gallery-item:hover{transform:scale(1.02);border-color:rgba(74,222,128,0.4);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;}
+.gallery-item .overlay{position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity 0.2s;font-size:24px;color:#fff;}
+.gallery-item:hover .overlay{opacity:1;}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column;padding:1rem;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;object-fit:contain;}
+.lightbox-close{position:absolute;top:16px;right:20px;font-size:28px;color:#fff;cursor:pointer;background:none;border:none;}
+.lightbox-caption{color:rgba(255,255,255,0.6);font-size:13px;margin-top:12px;text-align:center;}
+.upload-zone{border:2px dashed rgba(74,222,128,0.3);border-radius:12px;padding:3rem;text-align:center;margin-bottom:1.5rem;cursor:pointer;transition:border-color 0.2s;}
+.upload-zone:hover{border-color:rgba(74,222,128,0.6);}
+.upload-zone input{display:none;}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a>
+      <a href="stats.html">Stats</a><a href="gallery.html" style="color:#4ade80">Gallery</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+    <a href="standings.html">Standings</a><a href="stats.html">Stats</a><a href="gallery.html">Gallery</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">GALLERY</div>
+    <div class="page-sub">Match photos & highlights · EKSU Fresher's Cup 3.0</div>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;">
+
+  <!-- Upload zone (only visible to admin) -->
+  <div id="uploadSection" style="display:none;">
+    <div class="upload-zone" onclick="document.getElementById('photoInput').click()">
+      <input type="file" id="photoInput" accept="image/*" multiple onchange="handleUpload(event)"/>
+      <div style="font-size:36px;margin-bottom:8px;">📸</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:4px;">Upload Match Photos</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.4);">Click to select or drag photos here</div>
+    </div>
+  </div>
+
+  <div id="galleryGrid" class="gallery-grid"></div>
+  <div id="galleryEmpty" style="text-align:center;padding:4rem;color:rgba(255,255,255,0.2);display:none;">
+    <div style="font-size:48px;margin-bottom:1rem;">📷</div>
+    <div style="font-size:15px;">No photos yet. Check back after the matches!</div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <img id="lightboxImg" src="" alt=""/>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()">☀️</button>
+
+<script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+// Load photos from localStorage
+let photos = JSON.parse(localStorage.getItem('fc3photos')||'[]');
+
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const empty = document.getElementById('galleryEmpty');
+  grid.innerHTML = '';
+  if (photos.length === 0) { empty.style.display='block'; return; }
+  empty.style.display='none';
+  photos.forEach((p,i)=>{
+    const item=document.createElement('div');
+    item.className='gallery-item';
+    item.innerHTML=`<img src="${p.src}" alt="${p.caption||'Match photo'}"/><div class="overlay"><i class="fas fa-expand"></i></div>`;
+    item.onclick=()=>openLightbox(p.src, p.caption);
+    grid.appendChild(item);
+  });
+}
+
+function openLightbox(src, caption) {
+  document.getElementById('lightboxImg').src=src;
+  document.getElementById('lightboxCaption').textContent=caption||'';
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox') && !e.target.closest('.lightbox-close') && e.target.tagName!=='DIV') return;
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function handleUpload(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      photos.unshift({src:ev.target.result, caption:file.name.replace(/\.[^.]+$/,''), date:new Date().toLocaleDateString()});
+      localStorage.setItem('fc3photos', JSON.stringify(photos.slice(0,50)));
+      renderGallery();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Show upload if admin
+if (sessionStorage.getItem('fc3admin')==='1') {
+  document.getElementById('uploadSection').style.display='block';
+}
+
+renderGallery();
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" href="../images/favicon.png"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Standings · EKSU Fresher's Cup 3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html" style="color:#4ade80">Standings</a>
+      <a href="bracket.html">Bracket</a><a href="stats.html">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+    <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a><a href="stats.html">Stats</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">STANDINGS</div>
+    <div class="page-sub">Group stage table · EKSU Fresher's Cup 3.0</div>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;" id="standingsRoot"></div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-links"><a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="bracket.html">Bracket</a></div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+  </div>
+</footer>
+
+<!-- TICKER -->
+<div class="ticker-wrap" id="tickerWrap"><div class="ticker-label"><i class="fas fa-futbol"></i> &nbsp;Live</div><div style="overflow:hidden;flex:1;"><div class="ticker-track" id="tickerTrack"></div></div></div>
+<!-- GOAL POPUP -->
+<div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
+<div class="goal-popup" id="goalPopup"><button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button><div class="goal-popup-icon">⚽</div><div class="goal-popup-title">GOAL!</div><div class="goal-popup-scorer" id="gpScorer"></div><div class="goal-popup-match" id="gpMatch"></div><div class="goal-popup-score" id="gpScore"></div></div>
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()">☀️</button>
+<script src="../js/data.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+const groups = ['A','B','C','D'];
+const root = document.getElementById('standingsRoot');
+
+const posCls = ['pos-1','pos-2','pos-3'];
+
+groups.forEach(g => {
+  const table = getStandings(g);
+  if (table.every(t => t.name === 'TBD')) return;
+
+  const section = document.createElement('div');
+  section.innerHTML = `<div class="group-label">Group ${g}</div>`;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'standings-wrap';
+  wrap.style.marginBottom = '2rem';
+
+  const t = document.createElement('table');
+  t.className = 'standings-table';
+  t.innerHTML = `<thead><tr>
+    <th>#</th><th>Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th><th>Form</th>
+  </tr></thead>`;
+
+  const tbody = document.createElement('tbody');
+  table.forEach((team, i) => {
+    const formHTML = team.form.slice(-5).map(f =>
+      `<span class="form-badge f${f.toLowerCase()}">${f}</span>`).join('');
+    const posClass = posCls[i] || 'pos-n';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="pos-badge ${posClass}">${i+1}</span></td>
+      <td><strong>${team.name}</strong><br><span style="font-size:11px;color:rgba(255,255,255,0.35)">${team.dept}</span></td>
+      <td>${team.p}</td><td>${team.w}</td><td>${team.d}</td><td>${team.l}</td>
+      <td>${team.gf}</td><td>${team.ga}</td>
+      <td style="color:${team.gd>0?'#4ade80':team.gd<0?'#f87171':'inherit'}">${team.gd>0?'+':''}${team.gd}</td>
+      <td><strong>${team.pts}</strong></td>
+      <td>${formHTML}</td>`;
+    tbody.appendChild(tr);
+  });
+
+  t.appendChild(tbody);
+  wrap.appendChild(t);
+  section.appendChild(wrap);
+  root.appendChild(section);
+});
+
+const note = document.createElement('p');
+note.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.3);margin-top:1rem;';
+note.innerHTML = '<i class="fas fa-info-circle"></i> Top 2 teams from each group advance to the knockout bracket.';
+root.appendChild(note);
+</script>
+</body>
+</html>

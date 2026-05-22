@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" href="../images/favicon.png"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stats · EKSU Fresher's Cup 3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a>
+      <a href="stats.html" style="color:#4ade80">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+    <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a><a href="stats.html">Stats</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">STATS</div>
+    <div class="page-sub">Top scorers, assists & Man of the Match</div>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;">
+
+  <!-- TOP SCORERS -->
+  <div class="section-header" style="margin-bottom:1rem;">
+    <h2 class="section-title"><i class="fas fa-futbol" style="color:#4ade80;margin-right:8px;font-size:16px;"></i>Golden Boot Race</h2>
+  </div>
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1.25rem;margin-bottom:2rem;">
+    <div class="scorers-list" id="scorersList"></div>
+  </div>
+
+  <!-- MOTM VOTE -->
+  <div class="section-header" style="margin-bottom:1rem;">
+    <h2 class="section-title"><i class="fas fa-star" style="color:#fbbf24;margin-right:8px;font-size:16px;"></i>Man of the Match Vote</h2>
+  </div>
+  <div class="vote-card" id="motmCard"></div>
+
+  <!-- PREVIOUS MOTM -->
+  <div class="section-header" style="margin:2rem 0 1rem;">
+    <h2 class="section-title">Previous MOTM</h2>
+  </div>
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:1.25rem;display:flex;align-items:center;gap:14px;">
+    <div style="background:rgba(250,204,21,0.15);color:#fbbf24;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">
+      <i class="fas fa-star"></i>
+    </div>
+    <div>
+      <div style="font-weight:600;font-size:16px;" id="prevMotmName"></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px;" id="prevMotmMatch"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-links"><a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="standings.html">Standings</a></div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+  </div>
+</footer>
+
+<!-- TICKER -->
+<div class="ticker-wrap" id="tickerWrap"><div class="ticker-label"><i class="fas fa-futbol"></i> &nbsp;Live</div><div style="overflow:hidden;flex:1;"><div class="ticker-track" id="tickerTrack"></div></div></div>
+<!-- GOAL POPUP -->
+<div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
+<div class="goal-popup" id="goalPopup"><button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button><div class="goal-popup-icon">⚽</div><div class="goal-popup-title">GOAL!</div><div class="goal-popup-scorer" id="gpScorer"></div><div class="goal-popup-match" id="gpMatch"></div><div class="goal-popup-score" id="gpScore"></div></div>
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()">☀️</button>
+<script src="../js/data.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+// Scorers
+const rankCls = ['gold','silver','bronze'];
+const list = document.getElementById('scorersList');
+DATA.scorers.sort((a,b)=>b.goals-a.goals).forEach((s,i)=>{
+  const team = getTeam(s.team);
+  const div = document.createElement('div');
+  div.className = 'scorer-row';
+  div.innerHTML = `
+    <div class="scorer-rank ${rankCls[i]||'other'}">${i+1}</div>
+    <div class="scorer-info">
+      <div class="scorer-name">${s.name}</div>
+      <div class="scorer-team">${team.name} · #${s.jersey}</div>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center;">
+      <div class="scorer-goals"><i class="fas fa-futbol"></i> ${s.goals}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.35)"><i class="fas fa-shoe-prints"></i> ${s.assists} ast</div>
+    </div>`;
+  list.appendChild(div);
+});
+
+// MOTM
+const motm = DATA.motm;
+const match = DATA.matches.find(m=>m.id===motm.matchId);
+const mHome = match ? getTeam(match.home).name : '';
+const mAway = match ? getTeam(match.away).name : '';
+const total = motm.candidates.reduce((s,c)=>s+c.votes,0);
+let voted = false;
+
+const card = document.getElementById('motmCard');
+card.innerHTML = `
+  <div class="vote-title"><i class="fas fa-bolt" style="color:#fbbf24;margin-right:6px;"></i>Vote for MOTM · ${mHome} vs ${mAway}</div>
+  <div id="voteOptions"></div>
+  <div style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:12px;" id="voteMsg">Tap a player to cast your vote</div>`;
+
+const opts = document.getElementById('voteOptions');
+motm.candidates.forEach((c,i)=>{
+  const pct = Math.round(c.votes/total*100);
+  const div = document.createElement('div');
+  div.className = 'vote-option';
+  div.innerHTML = `
+    <div class="vote-name">${c.name}</div>
+    <div class="vote-bar-wrap"><div class="vote-bar" id="bar${i}" style="width:${pct}%"></div></div>
+    <div class="vote-pct" id="pct${i}">${pct}%</div>`;
+  div.onclick = ()=>{
+    if(voted) return;
+    voted=true;
+    motm.candidates[i].votes+=5;
+    const newTotal=motm.candidates.reduce((s,c)=>s+c.votes,0);
+    motm.candidates.forEach((c,j)=>{
+      const p=Math.round(c.votes/newTotal*100);
+      document.getElementById('bar'+j).style.width=p+'%';
+      document.getElementById('pct'+j).textContent=p+'%';
+    });
+    document.getElementById('voteMsg').textContent='Vote recorded! Thanks.';
+    document.getElementById('voteMsg').style.color='#4ade80';
+  };
+  opts.appendChild(div);
+});
+
+document.getElementById('prevMotmName').textContent = motm.previous.name;
+document.getElementById('prevMotmMatch').textContent = motm.previous.match;
+</script>
+</body>
+</html>

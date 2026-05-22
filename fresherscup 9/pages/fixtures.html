@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<link rel="icon" href="../images/favicon.png"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fixtures · EKSU Fresher's Cup 3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><i class="fas fa-futbol"></i></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html" style="color:#4ade80">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a><a href="stats.html">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+    <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a><a href="stats.html">Stats</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">FIXTURES</div>
+    <div class="page-sub">Full match schedule · EKSU Fresher's Cup 3.0</div>
+  </div>
+</div>
+
+<div class="container" style="padding-bottom:4rem;" id="fixturesRoot"></div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-links"><a href="../index.html">Home</a><a href="scores.html">Scores</a><a href="standings.html">Standings</a></div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+  </div>
+</footer>
+
+<!-- TICKER -->
+<div class="ticker-wrap" id="tickerWrap"><div class="ticker-label"><i class="fas fa-futbol"></i> &nbsp;Live</div><div style="overflow:hidden;flex:1;"><div class="ticker-track" id="tickerTrack"></div></div></div>
+<!-- GOAL POPUP -->
+<div class="goal-overlay" id="goalOverlay" onclick="closeGoalPopup()"></div>
+<div class="goal-popup" id="goalPopup"><button class="goal-popup-close" onclick="closeGoalPopup()"><i class="fas fa-times"></i></button><div class="goal-popup-icon">⚽</div><div class="goal-popup-title">GOAL!</div><div class="goal-popup-scorer" id="gpScorer"></div><div class="goal-popup-match" id="gpMatch"></div><div class="goal-popup-score" id="gpScore"></div></div>
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()">☀️</button>
+<script src="../js/data.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+const root = document.getElementById('fixturesRoot');
+
+// Group matches by date
+const byDate = {};
+DATA.matches.forEach(m => {
+  if (!byDate[m.date]) byDate[m.date] = [];
+  byDate[m.date].push(m);
+});
+
+const sortedDates = Object.keys(byDate).sort();
+
+sortedDates.forEach(date => {
+  const label = document.createElement('div');
+  label.style.cssText = 'font-size:11px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1.5px;margin:1.5rem 0 0.75rem;';
+  const d = new Date(date);
+  label.textContent = d.toLocaleDateString('en-NG', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  root.appendChild(label);
+
+  byDate[date].forEach(m => {
+    const home = getTeam(m.home), away = getTeam(m.away);
+    const isLive = m.status === 'live', isFt = m.status === 'ft';
+    const card = document.createElement('div');
+    card.className = 'match-card' + (isLive?' live-match':'');
+    card.style.marginBottom = '10px';
+    card.innerHTML = `
+      <div class="match-top">
+        <span class="match-round">${m.round}</span>
+        <span class="match-time-badge ${isLive?'live':isFt?'ft':'upcoming'}">
+          ${isLive?`<span class="live-dot"></span>${m.minute}'`:isFt?'FT':m.time}
+        </span>
+      </div>
+      <div class="match-body">
+        <div class="team-side"><div class="team-name">${home.name}</div><div class="team-dept">${home.dept}</div></div>
+        <div class="score-display">${isLive||isFt?`${m.homeScore} <span class="score-sep">:</span> ${m.awayScore}`:'<span style="font-size:16px;color:rgba(255,255,255,0.3)">vs</span>'}</div>
+        <div class="team-side right"><div class="team-name">${away.name}</div><div class="team-dept">${away.dept}</div></div>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,0.3);text-align:center;">
+        <i class="fas fa-map-marker-alt"></i> ${m.venue}
+      </div>`;
+    root.appendChild(card);
+  });
+});
+</script>
+</body>
+</html>
