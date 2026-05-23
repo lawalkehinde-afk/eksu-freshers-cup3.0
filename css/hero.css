@@ -94,6 +94,7 @@ body { padding-top: 0 !important; }
   grid-template-columns: 1fr auto;
   gap: 2rem;
   align-items: center;
+  min-height: 100vh;
 }
 
 /* Left side */
@@ -353,12 +354,44 @@ body { padding-top: 0 !important; }
 
 /* Mobile */
 @media(max-width: 768px) {
-  .hero-content { grid-template-columns: 1fr !important; padding: 0 1.25rem !important; }
+  .hero {
+    min-height: 100svh !important;
+    align-items: center !important;
+  }
+  .hero-content {
+    grid-template-columns: 1fr !important;
+    padding: 80px 1.25rem 2rem !important;
+    align-items: center !important;
+  }
   .hero-live-card { display: none !important; }
-  .hero-title { font-size: clamp(48px, 14vw, 72px) !important; }
-  .countdown-section { padding: 1rem 1.25rem !important; }
+  .hero-title {
+    font-size: clamp(44px, 13vw, 64px) !important;
+    line-height: 0.88 !important;
+  }
+  .hero-title-ghost {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.2) !important;
+    color: transparent !important;
+    display: block !important;
+  }
+  .hero-sub {
+    font-size: 9px !important;
+    letter-spacing: 2.5px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .countdown-section {
+    padding: 1rem 1.25rem !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    text-align: center !important;
+  }
   .countdown-unit { min-width: 46px !important; padding: 8px 10px !important; }
   .countdown-num { font-size: 24px !important; }
+  .btn-primary, .btn-outline {
+    padding: 12px 18px !important;
+    font-size: 12px !important;
+  }
 }
 
 @keyframes fadeUp { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
