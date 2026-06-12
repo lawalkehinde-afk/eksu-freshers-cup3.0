@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Leave a Review · EKSU Fresher's Cup 3.0</title>
+<link rel="icon" href="../images/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
+<style>
+.feedback-wrap{max-width:600px;margin:0 auto;padding:0 1.5rem 4rem;}
+.star-row{display:flex;gap:8px;margin-bottom:1rem;}
+.star{font-size:28px;cursor:pointer;color:rgba(255,255,255,0.2);transition:color 0.15s;}
+.star.active{color:#fbbf24;}
+.success-box{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:12px;padding:2rem;text-align:center;display:none;}
+.success-icon{font-size:48px;margin-bottom:12px;}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:#4ade80;margin-bottom:8px;}
+.success-sub{font-size:14px;color:rgba(255,255,255,0.5);}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><img src="../images/favicon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" alt="logo"/></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="stats.html">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a>
+    <a href="fixtures.html">Fixtures</a><a href="standings.html">Standings</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">LEAVE A REVIEW</div>
+    <div class="page-sub">Share your feedback · EKSU Fresher's Cup 3.0</div>
+  </div>
+</div>
+
+<div class="feedback-wrap">
+  <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:1.75rem;margin-bottom:1.5rem;">
+    <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:1.5rem;">
+      We'd love to hear from you! Share your experience with the tournament, the website, or anything else. Your feedback goes directly to the technical team.
+    </div>
+
+    <!-- Success message -->
+    <div class="success-box" id="successBox">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">Thank You!</div>
+      <div class="success-sub">Your review has been sent to the technical team. We appreciate your feedback!</div>
+    </div>
+
+    <!-- Form -->
+    <div id="feedbackForm">
+      <!-- Star Rating -->
+      <div class="form-group">
+        <label class="form-label">Rate your experience</label>
+        <div class="star-row" id="starRow">
+          <span class="star" onclick="setRating(1)">★</span>
+          <span class="star" onclick="setRating(2)">★</span>
+          <span class="star" onclick="setRating(3)">★</span>
+          <span class="star" onclick="setRating(4)">★</span>
+          <span class="star" onclick="setRating(5)">★</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" id="fname" placeholder="Enter your name"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" id="femail" placeholder="Enter your email"/>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-select" id="fcategory">
+          <option value="General Feedback">General Feedback</option>
+          <option value="Website Issue">Website Issue / Bug</option>
+          <option value="Score Error">Score / Fixture Error</option>
+          <option value="Suggestion">Suggestion</option>
+          <option value="Compliment">Compliment</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your Message</label>
+        <textarea class="form-input" id="fmessage" rows="5" placeholder="Share your thoughts..." style="resize:vertical;"></textarea>
+      </div>
+
+      <div id="formError" class="alert alert-error" style="display:none;margin-bottom:1rem;">Please fill in all fields before submitting.</div>
+
+      <button class="btn-primary" style="width:100%;justify-content:center;padding:13px;" onclick="submitFeedback()" id="submitBtn">
+        <i class="fas fa-paper-plane"></i> Send Review
+      </button>
+    </div>
+  </div>
+
+  <!-- Contact directly -->
+  <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:1.25rem;text-align:center;">
+    <div style="font-size:12px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Or contact directly</div>
+    <a href="mailto:atomickennylawal@gmail.com" style="color:#4ade80;font-size:14px;font-weight:500;">
+      <i class="fas fa-envelope"></i> atomickennylawal@gmail.com
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-sub">Ekiti State University · Fierce Tournament · 2026</div>
+    <div class="footer-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a>
+      <a href="gallery.html">Gallery</a><a href="feedback.html">Leave a Review</a>
+      <a href="legal.html">Privacy Policy</a><a href="legal.html">Terms</a>
+      <a href="admin.html">Admin</a>
+    </div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+  </div>
+</footer>
+
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()" title="Switch theme">🌑</button>
+
+<script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu')?.classList.toggle('open');}
+
+let rating = 0;
+function setRating(n) {
+  rating = n;
+  document.querySelectorAll('.star').forEach((s, i) => {
+    s.classList.toggle('active', i < n);
+  });
+}
+
+async function submitFeedback() {
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const category = document.getElementById('fcategory').value;
+  const message = document.getElementById('fmessage').value.trim();
+
+  if (!name || !email || !message) {
+    document.getElementById('formError').style.display = 'block';
+    setTimeout(() => document.getElementById('formError').style.display = 'none', 3000);
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: '1e096422-6678-48d8-8c21-6a20f975a6de',
+        subject: `[EKSU FC 3.0] ${category} from ${name}`,
+        from_name: name,
+        email: email,
+        message: `Category: ${category}\nRating: ${rating}/5 stars\n\n${message}`,
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('feedbackForm').style.display = 'none';
+      document.getElementById('successBox').style.display = 'block';
+    } else {
+      throw new Error('Failed');
+    }
+  } catch {
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Review';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again or email us directly.');
+  }
+}
+</script>
+</body>
+</html>

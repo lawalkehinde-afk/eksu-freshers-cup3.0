@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EKSU Fresher's Cup 3.0 — Official Tournament Hub</title>
+<link rel="icon" href="images/favicon.png"/>
+<link rel="apple-touch-icon" href="images/favicon.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#060310"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="FierceCup"/>
+<meta name="description" content="Official tournament hub for EKSU Fresher's Cup 3.0 — live scores, fixtures, standings, bracket and more."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;0,800;0,900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/animations.css"/>
+<link rel="stylesheet" href="css/hero.css"/>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon"><img src="images/favicon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" alt="logo"/></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="pages/scores.html">Scores</a>
+      <a href="pages/fixtures.html">Fixtures</a>
+      <a href="pages/standings.html">Standings</a>
+      <a href="pages/bracket.html">Bracket</a>
+      <a href="pages/stats.html">Stats</a>
+      <a href="pages/gallery.html">Gallery</a>
+      <a href="pages/stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="pages/scores.html">Scores</a>
+    <a href="pages/fixtures.html">Fixtures</a>
+    <a href="pages/standings.html">Standings</a>
+    <a href="pages/bracket.html">Bracket</a>
+    <a href="pages/stats.html">Stats</a>
+    <a href="pages/gallery.html">Gallery</a>
+    <a href="pages/stream.html">Live Stream</a>
+    <a href="pages/feedback.html">Leave a Review</a>
+    <a href="pages/admin.html" style="color:#4ade80">Admin Panel</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="pitch-lines"></div>
+  <div class="hero-circle c1"></div>
+  <div class="hero-circle c2"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="live-dot"></span> Tournament in Progress</div>
+      <h1 class="hero-title">
+        EKSU<br>
+        <span class="hero-title-ghost">FRESHER'S</span><br>
+        CUP <span class="hero-accent">3.0</span>
+      </h1>
+      <p class="hero-sub">Ekiti State University · Fierce Tournament · 2026</p>
+      <div class="hero-cta">
+        <a href="pages/scores.html" class="btn-primary"><i class="fas fa-futbol"></i> Live Scores</a>
+        <a href="pages/stream.html" class="btn-outline"><i class="fas fa-play"></i> Watch Live</a>
+      </div>
+    </div>
+
+    <!-- Live card — only shows during live match -->
+    <div class="hero-live-card" id="heroLiveCard" style="display:none;">
+      <div class="live-score-card">
+        <div class="live-card-top">
+          <div class="live-card-badge"><span class="live-dot"></span> LIVE</div>
+          <div class="live-card-min" id="liveMin">0'</div>
+        </div>
+        <div class="live-card-teams">
+          <div class="live-card-team" id="liveHome">—</div>
+          <div class="live-card-score" id="liveScore">0:0</div>
+          <div class="live-card-team right" id="liveAway">—</div>
+        </div>
+        <div class="live-card-label" id="liveRound">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-section" id="countdownSection">
+  <div>
+    <div class="countdown-label"><i class="fas fa-clock"></i> &nbsp;Next Match</div>
+    <div class="countdown-match" id="countdownMatch">Loading...</div>
+  </div>
+  <div class="countdown-grid">
+    <div class="countdown-unit"><span class="countdown-num" id="cdDays">00</span><div class="countdown-unit-label">Days</div></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cdHours">00</span><div class="countdown-unit-label">Hours</div></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cdMins">00</span><div class="countdown-unit-label">Mins</div></div>
+    <div class="countdown-sep">:</div>
+    <div class="countdown-unit"><span class="countdown-num" id="cdSecs">00</span><div class="countdown-unit-label">Secs</div></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="quick-stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">16</div><div class="stat-label">Teams</div></div>
+      <div class="stat-card"><div class="stat-num" id="matchCount">0</div><div class="stat-label">Matches Played</div></div>
+      <div class="stat-card"><div class="stat-num" id="goalCount">0</div><div class="stat-label">Goals Scored</div></div>
+      <div class="stat-card"><div class="stat-num" id="scorerCount">0</div><div class="stat-label">Top Scorers</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST SCORES -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Latest Scores</h2>
+      <a href="pages/scores.html" class="see-all">See all <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div id="latestScores" class="scores-grid"></div>
+  </div>
+</section>
+
+<!-- TOP SCORERS -->
+<section class="section dark-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Golden Boot Race</h2>
+      <a href="pages/stats.html" class="see-all">Full stats <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="scorers-list" id="scorersList"></div>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENTS -->
+<section class="section">
+  <div class="container">
+    <div class="section-header"><h2 class="section-title">Announcements</h2></div>
+    <div class="announce-list" id="announcements"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-sub">Ekiti State University · Fierce Tournament · 2026</div>
+    <div class="footer-links">
+      <a href="pages/scores.html">Scores</a>
+      <a href="pages/fixtures.html">Fixtures</a>
+      <a href="pages/standings.html">Standings</a>
+      <a href="pages/bracket.html">Bracket</a>
+      <a href="pages/gallery.html">Gallery</a>
+      <a href="pages/feedback.html">Leave a Review</a>
+      <a href="pages/legal.html">Terms & Privacy</a>
+      <a href="pages/admin.html">Admin</a>
+    </div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+  </div>
+</footer>
+
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwaBanner">
+  <img src="images/favicon.png" class="pwa-icon" alt="FierceCup"/>
+  <div class="pwa-text">
+    <div class="pwa-title">Install FierceCup App</div>
+    <div class="pwa-sub">Fast install · Works offline · Always updated</div>
+  </div>
+  <button class="pwa-install-btn" onclick="installPWA()"><i class="fas fa-download"></i> Install</button>
+  <button class="pwa-close" onclick="closePWABanner()"><i class="fas fa-times"></i></button>
+</div>
+
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()" title="Switch theme">🌑</button>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+
+const rankCls = ['gold','silver','bronze'];
+
+// Live card in hero
+const liveMatches = DATA.matches.filter(m => m.status === 'live');
+if (liveMatches.length > 0) {
+  const m = liveMatches[0];
+  const home = getTeam(m.home), away = getTeam(m.away);
+  document.getElementById('liveHome').textContent = home.name;
+  document.getElementById('liveAway').textContent = away.name;
+  document.getElementById('liveScore').textContent = m.homeScore + ':' + m.awayScore;
+  document.getElementById('liveMin').textContent = m.minute + "'";
+  document.getElementById('liveRound').textContent = m.round;
+  document.getElementById('heroLiveCard').style.display = 'block';
+}
+
+// Scores
+const scoresEl = document.getElementById('latestScores');
+DATA.matches.filter(m=>m.status==='live'||m.status==='ft').slice(0,4).forEach(m=>{
+  const home=getTeam(m.home), away=getTeam(m.away), isLive=m.status==='live';
+  const card=document.createElement('div');
+  card.className='match-card'+(isLive?' live-match':'');
+  card.innerHTML=`<div class="match-top"><span class="match-round">${m.round}</span>
+    <span class="match-time-badge ${isLive?'live':'ft'}">${isLive?`<span class="live-dot"></span>${m.minute}'`:'FT'}</span></div>
+    <div class="match-body">
+      <div class="team-side"><div class="team-name">${home.name}</div><div class="team-dept">${home.dept}</div></div>
+      <div class="score-display">${m.homeScore} <span class="score-sep">:</span> ${m.awayScore}</div>
+      <div class="team-side right"><div class="team-name">${away.name}</div><div class="team-dept">${away.dept}</div></div>
+    </div>`;
+  scoresEl.appendChild(card);
+});
+
+// Scorers
+const slist=document.getElementById('scorersList');
+[...DATA.scorers].sort((a,b)=>b.goals-a.goals).slice(0,3).forEach((s,i)=>{
+  const team=getTeam(s.team);
+  const div=document.createElement('div'); div.className='scorer-row';
+  div.innerHTML=`<div class="scorer-rank ${rankCls[i]||'other'}">${i+1}</div>
+    <div class="scorer-info"><div class="scorer-name">${s.name}</div><div class="scorer-team">${team.name} · #${s.jersey}</div></div>
+    <div class="scorer-goals"><i class="fas fa-futbol"></i> ${s.goals}</div>`;
+  slist.appendChild(div);
+});
+
+// Announcements
+const ann=document.getElementById('announcements');
+DATA.announcements.slice(0,3).forEach(a=>{
+  const div=document.createElement('div'); div.className='announce-card';
+  div.innerHTML=`<div class="announce-date">${a.date}</div><div class="announce-text">${a.text}</div>`;
+  ann.appendChild(div);
+});
+
+// Stats
+const ft=DATA.matches.filter(m=>m.status==='ft'||m.status==='live');
+document.getElementById('matchCount').textContent=ft.length;
+document.getElementById('goalCount').textContent=ft.reduce((s,m)=>s+m.homeScore+m.awayScore,0);
+document.getElementById('scorerCount').textContent=DATA.scorers.length;
+</script>
+</body>
+</html>

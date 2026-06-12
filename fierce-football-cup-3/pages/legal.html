@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Terms & Privacy · EKSU Fresher's Cup 3.0</title>
+<link rel="icon" href="../images/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../css/animations.css"/>
+<style>
+.legal-section { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+.legal-tabs { display: flex; gap: 8px; margin-bottom: 2rem; flex-wrap: wrap; }
+.legal-tab { flex: 1; padding: 12px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: transparent; color: rgba(255,255,255,0.4); font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; min-width: 120px; }
+.legal-tab.active { background: rgba(74,222,128,0.12); border-color: rgba(74,222,128,0.4); color: #4ade80; }
+.legal-content { display: none; }
+.legal-content.active { display: block; }
+.legal-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 2px; color: #fff; margin-bottom: 4px; }
+.legal-updated { font-size: 12px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem; }
+.legal-heading { font-size: 15px; font-weight: 600; color: #4ade80; margin: 1.5rem 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.legal-text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 10px; }
+.legal-list { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.8; padding-left: 1.5rem; margin-bottom: 10px; }
+.legal-list li { margin-bottom: 6px; }
+.legal-divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 2rem 0; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="logo-icon"><img src="../images/favicon.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;" alt="logo"/></span>
+      <div><div class="logo-title">EKSU FRESHER'S CUP</div><div class="logo-sub">3.0 · FIERCE TOURNAMENT</div></div>
+    </a>
+    <div class="nav-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="stats.html">Stats</a>
+      <a href="stream.html" class="nav-live"><span class="live-dot"></span>Live</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a><a href="scores.html">Scores</a>
+    <a href="fixtures.html">Fixtures</a><a href="standings.html">Standings</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-title">LEGAL</div>
+    <div class="page-sub">Terms, Privacy & FAQ · EKSU Fresher's Cup 3.0</div>
+  </div>
+</div>
+
+<div class="legal-section">
+  <div class="legal-tabs">
+    <button class="legal-tab active" onclick="showLegal('terms', this)"><i class="fas fa-file-alt"></i> Terms of Service</button>
+    <button class="legal-tab" onclick="showLegal('privacy', this)"><i class="fas fa-shield-alt"></i> Privacy Policy</button>
+    <button class="legal-tab" onclick="showLegal('faq', this)"><i class="fas fa-question-circle"></i> FAQ</button>
+  </div>
+
+  <!-- TERMS -->
+  <div class="legal-content active" id="legal-terms">
+    <div class="legal-title">Terms of Service</div>
+    <div class="legal-updated">Last Updated: 21 May, 2026</div>
+
+    <div class="legal-heading">1. Acceptance of Terms</div>
+    <p class="legal-text">By accessing and using the EKSU Fresher's Cup 3.0 official tournament website (fiercecup.vercel.app), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use this platform.</p>
+
+    <div class="legal-heading">2. Use of the Platform</div>
+    <p class="legal-text">This platform is the official digital hub for the EKSU Fresher's Cup 3.0 tournament. It is intended for use by students, staff, and attendees of Ekiti State University. You agree to use this site only for its intended purpose of following tournament updates, scores, fixtures, and related content.</p>
+    <p class="legal-text">You must not:</p>
+    <ul class="legal-list">
+      <li>Attempt to gain unauthorised access to the admin panel or any restricted area of the site</li>
+      <li>Use the platform to spread false information about the tournament or its participants</li>
+      <li>Interfere with the proper functioning of the website in any way</li>
+      <li>Use automated tools to scrape, copy, or reproduce content from this platform without permission</li>
+    </ul>
+
+    <div class="legal-heading">3. Tournament Information</div>
+    <p class="legal-text">All scores, fixtures, standings, and results published on this platform are provided in good faith by the tournament technical team. While we strive for accuracy, we cannot guarantee that all information is error-free at all times. Official results are subject to confirmation by the tournament organising committee.</p>
+
+    <div class="legal-heading">4. Man of the Match Voting</div>
+    <p class="legal-text">The MOTM voting feature is provided for fan engagement purposes only. Votes are non-binding and the technical team reserves the right to moderate or reset voting in the event of abuse or manipulation.</p>
+
+    <div class="legal-heading">5. Photo Gallery</div>
+    <p class="legal-text">Photos uploaded to the gallery are the property of the tournament organising committee and official media partners. Redistribution of gallery content without permission is not permitted. By submitting photos through the admin panel, the uploader confirms they have the right to publish such content.</p>
+
+    <div class="legal-heading">6. Live Stream</div>
+    <p class="legal-text">Live match streams are embedded from third-party platforms (YouTube/Facebook). The tournament is not responsible for the availability or quality of third-party streaming services. Stream availability depends on match day conditions and network coverage.</p>
+
+    <div class="legal-heading">7. Intellectual Property</div>
+    <p class="legal-text">The design, code, branding, and content of this platform are the intellectual property of the EKSU Fresher's Cup 3.0 technical team. You may not copy, reproduce, or redistribute any part of this platform without written permission.</p>
+
+    <div class="legal-heading">8. Limitation of Liability</div>
+    <p class="legal-text">The EKSU Fresher's Cup 3.0 technical team shall not be held liable for any inaccuracies in tournament data, temporary unavailability of the platform, or any damages arising from your use of this website.</p>
+
+    <div class="legal-heading">9. Changes to Terms</div>
+    <p class="legal-text">These terms may be updated at any time. Continued use of the platform after any changes constitutes your acceptance of the updated terms.</p>
+
+    <div class="legal-heading">10. Contact</div>
+    <p class="legal-text">For any questions regarding these terms, please contact the technical team at: <a href="mailto:atomickennylawal@gmail.com" style="color:#4ade80;">atomickennylawal@gmail.com</a></p>
+  </div>
+
+  <!-- PRIVACY -->
+  <div class="legal-content" id="legal-privacy">
+    <div class="legal-title">Privacy Policy</div>
+    <div class="legal-updated">Last Updated: 21 May, 2026</div>
+
+    <div class="legal-heading">Our Commitment to Privacy</div>
+    <p class="legal-text">The EKSU Fresher's Cup 3.0 platform is built with your privacy in mind. We do not require you to create an account, log in, or submit any personal information to view tournament content.</p>
+
+    <div class="legal-heading">1. Information We Collect</div>
+    <p class="legal-text">We collect minimal information:</p>
+    <ul class="legal-list">
+      <li><strong style="color:#fff;">Feedback Form:</strong> If you choose to leave a review or feedback, we collect your name, email address, and message. This is entirely voluntary.</li>
+      <li><strong style="color:#fff;">MOTM Votes:</strong> Votes are session-based and not linked to any personal identity.</li>
+      <li><strong style="color:#fff;">Theme Preference:</strong> Your chosen display theme (dark/sepia/light) is saved locally in your browser only — we never see this.</li>
+    </ul>
+
+    <div class="legal-heading">2. How We Use Your Information</div>
+    <p class="legal-text">Any feedback or review submitted through the platform is sent directly to the technical team email for the purpose of improving the platform and addressing concerns. We will never sell, share, or use your information for any other purpose.</p>
+
+    <div class="legal-heading">3. Third-Party Services</div>
+    <p class="legal-text">We use the following third-party services:</p>
+    <ul class="legal-list">
+      <li><strong style="color:#fff;">Web3Forms:</strong> Used to process feedback form submissions. Their privacy policy applies to information submitted through the form.</li>
+      <li><strong style="color:#fff;">YouTube/Facebook:</strong> Used for live stream embedding. Their respective privacy policies apply when you interact with embedded streams.</li>
+      <li><strong style="color:#fff;">Vercel:</strong> Our hosting platform. Standard web server logs may be maintained by Vercel per their privacy policy.</li>
+    </ul>
+
+    <div class="legal-heading">4. Cookies & Local Storage</div>
+    <p class="legal-text">We use your browser's local storage only to save your theme preference and MOTM vote status. No tracking cookies are used on this platform. You can clear this data at any time by clearing your browser's site data.</p>
+
+    <div class="legal-heading">5. Data Security</div>
+    <p class="legal-text">The admin panel is protected by secure credentials. We take reasonable measures to protect the integrity of tournament data published on this platform.</p>
+
+    <div class="legal-heading">6. Children's Privacy</div>
+    <p class="legal-text">This platform is intended for university students and adults. We do not knowingly collect information from anyone under the age of 16.</p>
+
+    <div class="legal-heading">7. Contact</div>
+    <p class="legal-text">For any privacy-related concerns, contact us at: <a href="mailto:atomickennylawal@gmail.com" style="color:#4ade80;">atomickennylawal@gmail.com</a></p>
+  </div>
+
+  <!-- FAQ -->
+  <div class="legal-content" id="legal-faq">
+    <div class="legal-title">FAQ</div>
+    <div class="legal-updated">Frequently Asked Questions</div>
+
+    <div id="faqList"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">EKSU FRESHER'S CUP 3.0</div>
+    <div class="footer-sub">Ekiti State University · Fierce Tournament · 2026</div>
+    <div class="footer-links">
+      <a href="scores.html">Scores</a><a href="fixtures.html">Fixtures</a>
+      <a href="standings.html">Standings</a><a href="bracket.html">Bracket</a>
+      <a href="gallery.html">Gallery</a><a href="feedback.html">Leave a Review</a>
+      <a href="legal.html">Privacy Policy</a><a href="legal.html">Terms</a>
+      <a href="admin.html">Admin</a>
+    </div>
+    <div class="footer-copy">© 2026 EKSU Fresher's Cup 3.0. Built by LAWAL ABDUL-MALIK KEHINDE (MK) · Technical Chairman</div>
+  </div>
+</footer>
+
+<button class="theme-toggle" id="themeToggle" onclick="cycleTheme()" title="Switch theme">🌑</button>
+<script src="../js/data.js"></script>
+<script src="../js/main.js"></script>
+<script>
+function toggleMenu(){document.getElementById('mobileMenu')?.classList.toggle('open');}
+function showLegal(id, btn) {
+  document.querySelectorAll('.legal-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.legal-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('legal-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+const faqs = [
+  { q: 'How are scores updated?', a: 'Scores are updated in real time by the tournament technical team during matches. Refresh the page if you need the latest update.' },
+  { q: 'How does Man of the Match voting work?', a: 'After each match, fans can vote for their MOTM from the candidates listed. Each person gets one vote per match. Results are displayed live.' },
+  { q: 'Can I watch matches live on this site?', a: 'Yes! When a match is being streamed, it will appear on the Live Stream page. The stream is embedded directly from YouTube or Facebook Live.' },
+  { q: 'How do I report an error in the scores or fixtures?', a: 'Contact the technical team at atomickennylawal@gmail.com or use the Leave a Review form to flag any issues.' },
+  { q: 'Is my data safe on this site?', a: 'Yes. We do not collect any personal data unless you voluntarily submit the feedback form. See our Privacy Policy for full details.' },
+  { q: 'Can I share photos from the gallery?', a: 'Gallery photos are the property of the tournament and its official media partners. Please credit the tournament when sharing.' },
+  { q: 'Who built this website?', a: 'The EKSU Fresher\'s Cup 3.0 platform was designed and built by LAWAL ABDUL-MALIK KEHINDE (MK), Technical Chairman and Computer Engineering Governor, 100 Level, Ekiti State University.' },
+  { q: 'How do I become a sub admin?', a: 'Sub admin access is granted by the main technical administrator. Contact atomickennylawal@gmail.com if you are part of the technical team.' },
+];
+
+const faqList = document.getElementById('faqList');
+faqs.forEach((f, i) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'border:1px solid rgba(255,255,255,0.07);border-radius:10px;margin-bottom:10px;overflow:hidden;';
+  div.innerHTML = `
+    <button onclick="toggleFaq(${i})" style="width:100%;text-align:left;padding:14px 16px;background:rgba(255,255,255,0.03);border:none;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+      ${f.q} <i class="fas fa-chevron-down" id="faq-icon-${i}" style="color:rgba(255,255,255,0.3);transition:transform 0.2s;font-size:12px;"></i>
+    </button>
+    <div id="faq-ans-${i}" style="display:none;padding:0 16px 14px;font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;">${f.a}</div>`;
+  faqList.appendChild(div);
+});
+
+function toggleFaq(i) {
+  const ans = document.getElementById('faq-ans-'+i);
+  const icon = document.getElementById('faq-icon-'+i);
+  const open = ans.style.display === 'block';
+  ans.style.display = open ? 'none' : 'block';
+  icon.style.transform = open ? '' : 'rotate(180deg)';
+  icon.style.color = open ? 'rgba(255,255,255,0.3)' : '#4ade80';
+}
+</script>
+</body>
+</html>
